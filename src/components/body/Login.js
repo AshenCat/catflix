@@ -1,5 +1,8 @@
 import React from 'react';
 import { Grid, TextField, Container, Button } from '@material-ui/core';
+import { withRouter } from 'react-router-dom';
+
+import { SessionContext } from '../../App';
 // import { makeStyles } from '@material-ui/core/styles';
 
 // const useStyles = makeStyles((theme) => ({
@@ -12,15 +15,28 @@ import { Grid, TextField, Container, Button } from '@material-ui/core';
 // }));
 
 function Login(props) {
+    const user = React.useContext(SessionContext);
+
     const [username, setUsername] = React.useState("");
+    const [password, setPassword] = React.useState("");
     const [usernameErr, setUsernameErr] = React.useState(false);
     const [passwordErr, setPasswordErr] = React.useState(false);
 
+    React.useEffect(()=> {
+        if (user) {
+            //console.log(user)
+            props.history.push('/Home')
+        }
+    }, [user, props.history])
 
     const onSubmit = (e) => {
         e.preventDefault();
         if (username.length > 18 || username.length < 6) {
             setUsernameErr(true)
+        }
+        if (!props.login(username,password)) {
+            setUsernameErr(true);
+            setPasswordErr(true);
         }
     }
 
@@ -47,12 +63,15 @@ function Login(props) {
                                 <TextField
                                     variant="outlined"
                                     className="centered"
+                                    onChange={(e)=>{setPassword(e.target.value); setPasswordErr(false);}}
+                                    error={passwordErr}
+                                    value={password}
                                     label="Password"
                                     type="password"
                                     required />
                             </div>
                             <div>
-                            <Button type="submit" className="centered mt-20" variant="contained" size="large" color="primary">Login</Button>
+                                <Button type="submit" className="centered mt-20" variant="contained" size="large" color="primary">Login</Button>
                             </div>
                         </form>
                     </Container>
@@ -62,4 +81,4 @@ function Login(props) {
     )
 }
 
-export default Login
+export default withRouter(Login)
