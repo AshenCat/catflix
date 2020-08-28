@@ -1,9 +1,9 @@
 import React from 'react'
-import { AppBar, Toolbar, IconButton, Button, Typography, Menu, MenuItem } from '@material-ui/core'
+import { AppBar, Toolbar, IconButton, Button, Typography, Menu, MenuItem, ButtonGroup } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import MenuIcon  from '@material-ui/icons/Menu'
 import AccountCircle  from '@material-ui/icons/AccountCircle'
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -22,8 +22,8 @@ function Header(props) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
 
-    const goToLogin = () => {
-        props.history.push('/Login')
+    const goTo = (where) => {
+        props.history.push(where)
     }
 
     const handleMenu = (event) => {
@@ -40,8 +40,8 @@ function Header(props) {
                     <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" className={classes.title}>
-                        
+                    <Typography variant="h6" className={classes.title} >
+                        <Link to={props.session? "/Dashboard" : "/Home"} style={{"textDecoration": "none", "color": "inherit"}}>Catflix</Link>
                     </Typography>
                     {props.session ? 
                         <div>
@@ -70,12 +70,18 @@ function Header(props) {
                                 }}
                                 open={open}
                                 onClose={handleClose}>
-                                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                                <MenuItem onClick={handleClose}>My account</MenuItem>
+                                <MenuItem onClick={handleClose} >My account</MenuItem>
+                                <MenuItem onClick={handleClose} component={Link} to="/Profile">Profile</MenuItem>
+                                <MenuItem onClick={props.logout}>Logout</MenuItem> 
                             </Menu>
                         </div>
                          :
-                    <Button color="inherit" onClick={goToLogin}>Login</Button>
+                    <div>
+                        <ButtonGroup disableElevation variant="outlined" color="inherit">
+                            <Button onClick={()=>goTo('/Login')}>Login</Button>
+                            <Button onClick={()=>goTo('/Register')}>Register</Button>
+                        </ButtonGroup>
+                    </div>
                     }
                 </Toolbar>
             </AppBar>
