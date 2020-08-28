@@ -1,20 +1,23 @@
 import React from 'react';
-import { Grid, TextField, Container, Button } from '@material-ui/core';
+import { Grid, TextField, Container, Button, Paper, Typography } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
 
 import { SessionContext } from '../../App';
-// import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
-// const useStyles = makeStyles((theme) => ({
-//     margin: {
-//       margin: theme.spacing(1),
-//     },
-//     extendedIcon: {
-//       marginRight: theme.spacing(1),
-//     },
-// }));
+const useStyles = makeStyles((theme) => ({
+    marginTop: {
+      marginTop: '2rem',
+    },
+    gridBorderLeft: {
+        borderLeft: '1px solid lightgray',
+        margin: '3rem 0',
+        padding: '0 3rem'
+    }
+}));
 
 function Login(props) {
+    const classes = useStyles();
     const user = React.useContext(SessionContext);
 
     const [username, setUsername] = React.useState("");
@@ -24,7 +27,6 @@ function Login(props) {
 
     React.useEffect(()=> {
         if (user) {
-            //console.log(user)
             props.history.push('/Home')
         }
     }, [user, props.history])
@@ -35,49 +37,53 @@ function Login(props) {
             setUsernameErr(true)
         }
         if (!props.login(username,password)) {
-            setUsernameErr(true);
-            setPasswordErr(true);
+            setTimeout(()=>{
+                setUsernameErr(true);
+                setPasswordErr(true);
+            }, 1000)
         }
     }
 
     return (
-        <div>
-            <Grid container>
-                <Grid item xs={12} sm={8}>
-                    
+        <Container>
+            <Paper>
+                <Grid container className={classes.marginTop}>
+                    <Grid item xs={12} sm={8} container>
+                    </Grid>
+                    <Grid item xs={12} sm={4} container>
+                        <div className={classes.gridBorderLeft}>
+                            <Typography variant="h4">Login</Typography>
+                            <form noValidate onSubmit={onSubmit}>
+                                <div className="mt-20">
+                                    <TextField
+                                        onChange={(e)=>{setUsername(e.target.value); setUsernameErr(false);}}
+                                        label="Username" 
+                                        value={username}
+                                        error={usernameErr}
+                                        helperText={usernameErr ? "Validation failed" : ""}
+                                        variant="outlined"
+                                        required />
+                                </div>
+                                <div className="mt-20">
+                                    <TextField
+                                        variant="outlined"
+                                        className="centered"
+                                        onChange={(e)=>{setPassword(e.target.value); setPasswordErr(false);}}
+                                        error={passwordErr}
+                                        value={password}
+                                        label="Password"
+                                        type="password"
+                                        required />
+                                </div>
+                                <div>
+                                    <Button type="submit" className="centered mt-20" variant="contained" size="large" color="primary">Login</Button>
+                                </div>
+                            </form>
+                            </div>
+                    </Grid>
                 </Grid>
-                <Grid item xs={12} sm={4}>
-                    <Container className="form">
-                        <form noValidate onSubmit={onSubmit}>
-                            <div>
-                                <TextField
-                                    onChange={(e)=>{setUsername(e.target.value); setUsernameErr(false);}}
-                                    label="Username" 
-                                    value={username}
-                                    error={usernameErr}
-                                    helperText={usernameErr ? "Validation failed" : ""}
-                                    variant="outlined"
-                                    required />
-                            </div>
-                            <div className="mt-20">
-                                <TextField
-                                    variant="outlined"
-                                    className="centered"
-                                    onChange={(e)=>{setPassword(e.target.value); setPasswordErr(false);}}
-                                    error={passwordErr}
-                                    value={password}
-                                    label="Password"
-                                    type="password"
-                                    required />
-                            </div>
-                            <div>
-                                <Button type="submit" className="centered mt-20" variant="contained" size="large" color="primary">Login</Button>
-                            </div>
-                        </form>
-                    </Container>
-                </Grid>
-            </Grid>
-        </div>
+            </Paper>
+        </Container>
     )
 }
 
