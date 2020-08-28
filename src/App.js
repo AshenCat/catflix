@@ -22,11 +22,11 @@ class App extends React.Component {
   }
 
   login = (username, password) => {
-    Axios.post(`${target}/api/user/login`, {username, password}, {withCredentials: true})
+    Axios.post(`${target}/api/user/auth/login`, {username, password}, {withCredentials: true})
       .then((res) => {
         if (res.data.payload) {
           this.setState({session: res.data.payload})
-          this.props.history.push('/Home')
+          this.props.history.push('/Dashboard')
           return true;
         }
         else return false;
@@ -37,7 +37,11 @@ class App extends React.Component {
   }
 
   logout = () => {
-    this.setState({session: null})
+    Axios.post(`${target}/api/user/auth/logout`, {}, {withCredentials: true})
+    .then((res) => {
+      this.setState({session: null})
+      this.props.history.push('/Login')
+    })
   }
 
   render() { 
