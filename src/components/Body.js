@@ -7,7 +7,7 @@ import Register from './body/Register'
 export default function Body(props) {
     return (
         <div>
-            <Route exact path='/Login' component={() => <Login login={props.login} />} />
+            <Route exact path='/Login' component={() => <Login login={props.login} session={props.session}/>} />
             <Route exact path='/Dashboard' component={Dashboard} />
             <Route exact path='/Register' component={Register} />
         </div>
