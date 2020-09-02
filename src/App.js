@@ -7,8 +7,6 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import './App.css';
 
-export const SessionContext = React.createContext();
-
 class App extends React.Component {
   state = {
     session: null
@@ -21,19 +19,8 @@ class App extends React.Component {
       })
   }
 
-  login = (username, password) => {
-    Axios.post(`${target}/api/user/auth/login`, {username, password}, {withCredentials: true})
-      .then((res) => {
-        if (res.data.payload) {
-          this.setState({session: res.data.payload})
-          this.props.history.push('/Dashboard')
-          return true;
-        }
-        else return false;
-      },
-      (err) => {
-        console.log("status 500")
-      })
+  login = (session) => {
+    this.setState({session})
   }
 
   logout = () => {
@@ -48,9 +35,7 @@ class App extends React.Component {
     return ( 
       <div className="App">
         <Header logout={this.logout} session={this.state.session}/>
-        <SessionContext.Provider value={this.state.session}>
-          <Body login={this.login} />
-        </SessionContext.Provider>
+        <Body login={this.login} session={this.state.session} />
         <Footer/>
       </div>
      );
