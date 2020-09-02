@@ -46,6 +46,7 @@ function Header(props) {
                     {props.session ? 
                         <div>
                             <IconButton
+                                id="popup"
                                 aria-label="account of current user"
                                 aria-controls="menu-appbar"
                                 aria-haspopup="true"
@@ -70,9 +71,9 @@ function Header(props) {
                                 }}
                                 open={open}
                                 onClose={handleClose}>
-                                <MenuItem onClick={handleClose} >My account</MenuItem>
+                                <MenuItem onClick={handleClose} component={Link} to="/Account">My account</MenuItem>
                                 <MenuItem onClick={handleClose} component={Link} to="/Profile">Profile</MenuItem>
-                                <MenuItem onClick={props.logout}>Logout</MenuItem> 
+                                <MenuItem onClick={()=>{handleClose(); props.logout();}}>Logout</MenuItem> 
                             </Menu>
                         </div>
                          :
