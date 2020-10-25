@@ -1,8 +1,7 @@
 import React from 'react';
 import { Grid, TextField, Container, Button, Paper, Typography } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
-import Axios from 'axios'
-import target from '../helper/target'
+import { useUserContext } from '../../context/UserContext'
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -20,41 +19,23 @@ const useStyles = makeStyles((theme) => ({
 function Login(props) {
     const classes = useStyles();
 
+    const { getUserSession } = useUserContext();
+
     const [username, setUsername] = React.useState("");
     const [password, setPassword] = React.useState("");
     const [usernameErr, setUsernameErr] = React.useState(false);
     const [passwordErr, setPasswordErr] = React.useState(false);
 
     React.useEffect(()=> {
-        if (props.session) {
-            props.history.push('/Home')
-        }
-        return () => {
-            
-        }
-    }, [props])
+        if (getUserSession() !== null) props.history.push('/Home')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     const onSubmit = (e) => {
         e.preventDefault();
         if (username.length > 18 || username.length < 6) {
             setUsernameErr(true)
         }
-        Axios.post(`${target}/api/user/auth/login`, {username, password}, {withCredentials: true})
-            .then((res) => {
-                if (!res.data.payload) {
-                    setTimeout(()=>{
-                        setUsernameErr(true);
-                        setPasswordErr(true);
-                    }, 1000)
-                }
-                
-                else props.login(res.data.payload)
-                
-            },
-            (err) => {
-              console.log("status 500")
-            })
-        
     }
 
     return (

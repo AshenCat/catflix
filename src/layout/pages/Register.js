@@ -2,7 +2,7 @@ import React from 'react'
 import { TextField, Container, Button, Paper, Typography, Grid, CircularProgress, Dialog, DialogTitle, DialogContentText, DialogActions, DialogContent } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Axios from 'axios';
-import target from '../helper/target';
+import target from '../../helper/target';
 import { withRouter } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
