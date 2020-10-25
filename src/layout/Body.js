@@ -1,9 +1,9 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import Login from '../pages/Login'
-import Dashboard from '../pages/Dashboard'
-import Register from '../pages/Register'
-import Profile from '../pages/Profile'
+import Login from './pages/Login'
+import Dashboard from './pages/Dashboard'
+import Register from './pages/Register'
+import Profile from './pages/Profile'
 
 export default function Body(props) {
     return (
