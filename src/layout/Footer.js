@@ -1,4 +1,4 @@
-import { Container, Grid, makeStyles, Paper, Typography } from '@material-ui/core'
+import { Container, Grid, makeStyles, Typography } from '@material-ui/core'
 import { Facebook, Instagram, Twitter } from '@material-ui/icons';
 import React from 'react'
 
@@ -16,16 +16,20 @@ const useStyles = makeStyles(theme=>({
   },
   links: {
     color: "#fff",
-    margin: "0 .65rem",
+    margin: "0 .15rem",
     marginTop: ".25rem",
     textDecoration: "none",
     transition: "all .4s ease-out",
     '&:hover': {
       textDecoration: "underline",
       color: "#888",
-      listStyleType: "circle",
       transition: "all .3s ease-out",
     }
+  },
+  linkSeparator: {
+    color: "#fff",
+    margin: "0 .65rem",
+    marginTop: ".25rem",
   },
   footCopyright: {
     color: "#888"
@@ -39,20 +43,23 @@ export default function Footer() {
           <Container>
             <Grid container justify="center">
               <Grid item>
-                <Typography>Catflix</Typography>
+                <Typography variant="h5">Catflix</Typography>
               </Grid>
-              <Grid container item justify="center">
-                <a href="/#" className={classes.links}><Typography><Facebook fontSize="large" /></Typography></a>
-                <a href="/#" className={classes.links}><Typography><Instagram fontSize="large" /></Typography></a>
-                <a href="/#" className={classes.links}><Typography><Twitter fontSize="large" /></Typography></a>
+              <Grid container item justify="center" style={{marginTop: "1rem"}}>
+                <a href="/#" className={classes.links}><Typography style={{margin:"0 .65rem"}}><Facebook fontSize="large" /></Typography></a>
+                <a href="/#" className={classes.links}><Typography style={{margin:"0 .65rem"}}><Instagram fontSize="large" /></Typography></a>
+                <a href="/#" className={classes.links}><Typography style={{margin:"0 .65rem"}}><Twitter fontSize="large" /></Typography></a>
               </Grid>
               <Grid container item justify="center">
                 <a href="/#" className={classes.links}>Info</a>
+                <Typography className={classes.linkSeparator}>•</Typography>
                 <a href="/#" className={classes.links}>Support</a>
+                <Typography className={classes.linkSeparator}>•</Typography>
                 <a href="/#" className={classes.links}>Marketing</a>
               </Grid>
               <Grid container item justify="center">
                 <a href="/#" className={classes.links}>Terms of use</a>
+                <Typography className={classes.linkSeparator}>•</Typography>
                 <a href="/#" className={classes.links}>Privacy Policy</a>
               </Grid>
               <Grid container item justify="center">
