@@ -1,45 +1,28 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
-import Axios from 'axios'
-import target from './helper/target'
+import { useRouteMatch, withRouter } from 'react-router-dom';
 import Body from './layout/Body';
 import Header from './layout/Header';
 import Footer from './layout/Footer';
+import { useUserContext } from './context/UserContext'
 import './App.css';
 
-class App extends React.Component {
-  state = {
-    session: null
-  }
 
-  componentDidMount() {
-    Axios.post(`${target}/api/user/auth`, {}, {withCredentials: true})
-      .then((res) => {
-        this.setState({session: res.data})
-      })
-  }
+const App = () => {
+  const match = useRouteMatch();
+  const { checkAuth } = useUserContext();
 
-  login = (session) => {
-    this.setState({session})
-  }
+  React.useEffect(()=>{
+    checkAuth()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [match])
 
-  logout = () => {
-    Axios.post(`${target}/api/user/auth/logout`, {}, {withCredentials: true})
-    .then((res) => {
-      this.setState({session: null})
-      this.props.history.push('/Login')
-    })
-  }
-
-  render() { 
-    return ( 
-      <div className="App">
-        <Header logout={this.logout} session={this.state.session}/>
-        <Body login={this.login} session={this.state.session} />
-        <Footer/>
-      </div>
-     );
-  }
+  return (
+    <div className="App">
+      <Header />
+      <Body />
+      <Footer />
+    </div>
+  )
 }
- 
+
 export default withRouter(App);
