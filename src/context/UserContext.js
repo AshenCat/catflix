@@ -20,9 +20,8 @@ export default function UserProvider(props) {
                     }, 1000)
                 }
                 else setUserSession(res.data.payload);
-            },
-            (err) => {
-              console.log("Status 500");
+            }).catch((err) => {
+                console.log("Server Error...");
             })
     }
 
@@ -33,15 +32,22 @@ export default function UserProvider(props) {
     }
     
     const logout = () => {
-        return
+        Axios.post(`${target}/api/logout`, {withCredentials: true})
+            .then((res)=> {
+                //Snackbar here
+            }).catch((err) => {
+                console.log("Server Error...")
+            })
     }
 
     const checkAuth = () => {
-        Axios.post(`${target}/api/user/auth`, {}, {withCredentials: true})
+        Axios.post(`${target}/api/user/`, {}, {withCredentials: true})
             .then((res) => {
                 console.log("Checking user auth: ")
                 console.log(res.data)
                 setUserSession(res.data)
+            }).catch((err) => {
+                console.log("Server Error...")
             })
     }
 
