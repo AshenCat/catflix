@@ -6,9 +6,9 @@ import AccountCircle  from '@material-ui/icons/AccountCircle'
 import { withRouter, Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-      flexGrow: 1,
-    },
+    // root: {
+    //   flexGrow: 1,
+    // },
     menuButton: {
       marginRight: theme.spacing(2),
     },
@@ -34,14 +34,23 @@ function Header(props) {
         setAnchorEl(null);
     };
     return (
-        <div className={classes.root}>
+        <header>
             <AppBar position="static">
                 <Toolbar>
-                    <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                    <IconButton 
+                        edge="start" 
+                        className={classes.menuButton} 
+                        color="inherit" 
+                        aria-label="menu"
+                        onClick={()=>props.setSideNav(true)}>
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" className={classes.title} >
-                        <Link to={props.session? "/Dashboard" : "/Home"} style={{"textDecoration": "none", "color": "inherit"}}>Catflix</Link>
+                        <Link 
+                            to={props.session? "/Dashboard" : "/Home"} 
+                            style={{"textDecoration": "none", "color": "inherit"}}>
+                                Catflix
+                        </Link>
                     </Typography>
                     {props.session ? 
                         <div>
@@ -86,7 +95,7 @@ function Header(props) {
                     }
                 </Toolbar>
             </AppBar>
-        </div>
+        </header>
     )
 }
 
