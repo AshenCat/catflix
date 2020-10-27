@@ -8,6 +8,8 @@ import './App.css';
 
 
 const App = () => {
+  const [sideNav, setSideNav] = React.useState(false)
+
   const match = useRouteMatch();
   const { checkAuth } = useUserContext();
 
@@ -18,8 +20,8 @@ const App = () => {
 
   return (
     <div className="App">
-      <Header />
-      <Body />
+      <Header setSideNav={setSideNav} />
+      <Body sideNav={sideNav} setSideNav={setSideNav} />
       <Footer />
     </div>
   )
