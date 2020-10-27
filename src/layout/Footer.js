@@ -5,7 +5,7 @@ import React from 'react'
 
 const useStyles = makeStyles(theme=>({
   footer: {
-    position: "absolute",
+    position: "relative",
     bottom: 0,
     left: 0,
     right: 0,
