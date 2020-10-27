@@ -1,17 +1,19 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import Login from './pages/Login'
-import Dashboard from './pages/Dashboard'
+import Home from './pages/Home'
 import Register from './pages/Register'
 import Profile from './pages/Profile'
+import SideNav from './sideNav/SideNav';
 
 export default function Body(props) {
     return (
-        <div>
-            <Route exact path='/Login' component={() => <Login login={props.login} session={props.session}/>} />
-            <Route exact path='/Dashboard' component={Dashboard} />
+        <main style={{flex: 1}}>
+            <SideNav open={props.sideNav}  setSideNav={props.setSideNav} />
+            <Route exact path='/Login' component={Login} />
+            <Route exact path='/Home' component={Home} />
             <Route exact path='/Register' component={Register} />
-            <Route exact path='/Profile' component={() => <Profile session={props.session}/>} />
-        </div>
+            <Route exact path='/Profile' component={Profile} />
+        </main>
     )
 }
