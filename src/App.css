@@ -1,13 +1,5 @@
-.centered {
-  margin: 0 auto !important;
-}
-
-.mt-20 {
-  margin-top: 20px !important;
-}
-
-.form{
-  margin: 1em;
-  padding: 2em;
-  border-left: 1px solid lightgray;
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
