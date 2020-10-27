@@ -1,22 +1,56 @@
-import { Typography } from '@material-ui/core'
+import { Avatar, Backdrop, Grid, Typography } from '@material-ui/core'
+import { DashboardRounded, DashboardTwoTone, Person } from '@material-ui/icons'
 import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import "./SideNav.css"
 
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
+  },
+}));
+
+
 function SideNav(props) {
+    const classes = useStyles();
     return (
         <>
-            <div id="sidenav" 
-                className={`${props.open ? 'backdrop bkd-open' : null }`}
-                onClick={()=>props.setSideNav(false)}/>
+            {/* <div id="sidenav" 
+                className={`${props.open ? 'backdrop bkd-open' : 'backdrop' }`}
+                onClick={()=>props.setSideNav(false)}/> */}
+            <Backdrop open={props.open} onClick={()=>props.setSideNav(false)} className={classes.backdrop}>
             <nav id="sideNav" className={`${props.open ? 'sidenav open' : 'sidenav close'}`}>
-                <Typography variant="h4">Navigation</Typography>
-                <Typography variant="h5" className="nav-item" noWrap><Link to="/" className="link">Home</Link></Typography>
-                <Typography variant="h5" className="nav-item" noWrap><Link to="/" className="link">Dashboard</Link></Typography>
-                <Typography variant="h5" className="nav-item" noWrap><Link to="/" className="link">Profile</Link></Typography>
-                <Typography variant="h5" className="nav-item" noWrap><Link to="/" className="link">About</Link></Typography>
-                <Typography variant="h5" className="nav-item" noWrap><Link to="/" className="link">Terms of use</Link></Typography>
+                <Grid container justify="center" spacing={2} style={{marginBottom: "1rem"}}>
+                    <Grid container item justify="center"> 
+                        <Avatar>
+                            <Person fontSize="large" />
+                        </Avatar>
+                    </Grid>
+                    <Grid item>
+                        <Typography>Your Name here</Typography>
+                    </Grid>
+                </Grid>
+                <Typography variant="h5" className="nav-item" noWrap>
+                    <Link to="/" className="link"><Grid container alignItems="center" justify="flex-end" wrap="nowrap"> Home</Grid></Link>
+                </Typography>
+                <Typography variant="h5" className="nav-item" noWrap>
+                    <Link to="/" className="link"><Grid container alignItems="center" justify="flex-end" wrap="nowrap"><DashboardRounded />Dashboard</Grid></Link>
+                </Typography>
+                <Typography variant="h5" className="nav-item" noWrap>
+                    <Link to="/" className="link"><Grid container alignItems="center" justify="flex-end" wrap="nowrap">Subscriptions</Grid></Link>
+                </Typography>
+                <Typography variant="h5" className="nav-item" noWrap>
+                    <Link to="/" className="link"><Grid container alignItems="center" justify="flex-end" wrap="nowrap"><DashboardTwoTone />Account</Grid></Link>
+                </Typography>
+                <Typography variant="h5" className="nav-item" noWrap>
+                    <Link to="/" className="link"><Grid container alignItems="center" justify="flex-end" wrap="nowrap"><DashboardTwoTone />Help</Grid></Link>
+                </Typography>
             </nav>
+            </Backdrop>
+            
         </>
     )
 }
