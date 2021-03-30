@@ -37,7 +37,10 @@ app.use(cors({
 app.use(expressSession({
     secret: config.secret,
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: true,
+    cookie: {
+        maxAge: 3 * 60 * 60 * 1000,
+    },
 }))
 app.use(cookieParser(config.secret))
 app.use(passport.initialize());
