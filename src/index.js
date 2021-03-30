@@ -5,13 +5,16 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import UserProvider from './context/UserContext';
+import SnackbarProvider from './context/SnackbarContext';
 
 ReactDOM.render(
   <BrowserRouter>
     <React.StrictMode>
-      <UserProvider>
-        <App />
-      </UserProvider>
+      <SnackbarProvider>
+        <UserProvider>
+          <App />
+        </UserProvider>
+      </SnackbarProvider>
     </React.StrictMode>
   </BrowserRouter>,
   document.getElementById('root')
