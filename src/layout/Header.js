@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import MenuIcon  from '@material-ui/icons/Menu'
 import AccountCircle  from '@material-ui/icons/AccountCircle'
 import { withRouter, Link } from 'react-router-dom';
+import { useUserContext } from '../context/UserContext';
 
 const useStyles = makeStyles((theme) => ({
     // root: {
@@ -21,6 +22,8 @@ function Header(props) {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
+
+    const {userSession, logout} = useUserContext();
 
     const goTo = (where) => {
         props.history.push(where)
@@ -47,12 +50,12 @@ function Header(props) {
                     </IconButton>
                     <Typography variant="h6" className={classes.title} >
                         <Link 
-                            to={props.session? "/Dashboard" : "/Home"} 
+                            to={userSession ? "/Dashboard" : "/Home"} 
                             style={{"textDecoration": "none", "color": "inherit"}}>
                                 Catflix
                         </Link>
                     </Typography>
-                    {props.session ? 
+                    {userSession ? 
                         <div>
                             <IconButton
                                 id="popup"
@@ -62,7 +65,7 @@ function Header(props) {
                                 onClick={handleMenu}
                                 color="inherit">
                                 <Typography className={classes.menuButton}>
-                                    {props.session.username}
+                                    {userSession.username}
                                 </Typography>
                                 <AccountCircle />
                             </IconButton>
@@ -82,7 +85,7 @@ function Header(props) {
                                 onClose={handleClose}>
                                 <MenuItem onClick={handleClose} component={Link} to="/Account">My account</MenuItem>
                                 <MenuItem onClick={handleClose} component={Link} to="/Profile">Profile</MenuItem>
-                                <MenuItem onClick={()=>{handleClose(); props.logout();}}>Logout</MenuItem> 
+                                <MenuItem onClick={()=>{handleClose(); logout();}}>Logout</MenuItem> 
                             </Menu>
                         </div>
                          :
