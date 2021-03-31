@@ -40,6 +40,7 @@ function Header(props) {
         <header>
             <AppBar position="static">
                 <Toolbar>
+                    {userSession ? 
                     <IconButton 
                         edge="start" 
                         className={classes.menuButton} 
@@ -47,7 +48,7 @@ function Header(props) {
                         aria-label="menu"
                         onClick={()=>props.setSideNav(true)}>
                         <MenuIcon />
-                    </IconButton>
+                    </IconButton> : null}
                     <Typography variant="h6" className={classes.title} >
                         <Link 
                             to={userSession ? "/Dashboard" : "/Home"} 
