@@ -18,10 +18,10 @@ export default function UserProvider(props) {
             .then((res) => {
                 console.log(res.data.payload)
                 if (!res.data.payload){
-                    setTimeout(()=>{
+                    // setTimeout(()=>{
                         setOpenErr(true)
                         setSubmitting(false)
-                    }, 1000)
+                    // }, 1000)
                 }
                 else setUserSession(res.data.payload);
             }).catch((err) => {

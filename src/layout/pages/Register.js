@@ -31,7 +31,7 @@ function Register(props) {
     const onSubmit = (e) => {
         e.preventDefault();
         setSubmitting(true);
-        setTimeout(()=>{
+        // setTimeout(()=>{
             Axios.put(`${target}/api/user`, {username, password}, {withCredentials: true})
             .then((res) => {
                 console.log(res.data)
@@ -49,7 +49,7 @@ function Register(props) {
                     setDialogOpen(true)
                 }
             })
-        }, 500)
+        // }, 500)
     }
 
     return (
