@@ -10,41 +10,6 @@ function isValid(str){
     return !/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]\s/g.test(str);
    }
 
-server.route('/logout')
-    .post((req, res, next) => {
-        req.logOut();
-        res.json({msg: `Successfully logged out`})
-    })
-    
-server.route('/login')
-    .post((req, res ,next) => {
-        passport.authenticate('local', (err, user, info) => {
-            if (err) {
-                res.status(500)
-                next(err)
-            }
-            if (!user) res.json({msg: "User not found"})
-            else {
-                req.logIn(user, err => {
-                    if (err) throw err;
-                    else {
-                        res.json({
-                            msg: "Successfully logged in!",
-                            payload: {
-                                username: user.username,
-                                access: user.access,
-                                avatar: user.avatar,
-                                quote: req.user.quote,
-                                createdAt: user.createdAt,
-                                updatedAt: user.updatedAt,
-                            }
-                        })
-                    }
-                })
-            }
-        })(req,res,next)
-    })
-
 
 server.route('/')
     .put((req, res, next)=>{
@@ -97,6 +62,7 @@ server.route('/')
         })
     })
     .post((req, res) => {
+        if(req.user) console.log("Auth success");
         if(!req.user) res.json(null)
         else res.json({
             username: req.user.username,
@@ -106,6 +72,41 @@ server.route('/')
             createdAt: req.user.createdAt,
             updatedAt: req.user.updatedAt,
         })
+    })
+
+server.route('/logout')
+    .get((req, res) => {
+        req.logOut();
+        res.json({msg: `Successfully logged out`})
+    })
+    
+server.route('/login')
+    .post((req, res ,next) => {
+        passport.authenticate('local', (err, user, info) => {
+            if (err) {
+                res.status(500)
+                next(err)
+            }
+            if (!user) res.json({msg: "User not found"})
+            else {
+                req.logIn(user, err => {
+                    if (err) throw err;
+                    else {
+                        res.json({
+                            msg: "Successfully logged in!",
+                            payload: {
+                                username: user.username,
+                                access: user.access,
+                                avatar: user.avatar,
+                                quote: req.user.quote,
+                                createdAt: user.createdAt,
+                                updatedAt: user.updatedAt,
+                            }
+                        })
+                    }
+                })
+            }
+        })(req,res,next)
     })
 
 module.exports = server;
