@@ -1,9 +1,8 @@
 import React from 'react';
 import { Grid, TextField, Container, Button, Paper, Typography, Collapse, IconButton, CircularProgress } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
-import { useUserContext } from '../../context/UserContext'
+import { useUserContext } from '../../../context/UserContext'
 import Alert from '@material-ui/lab/Alert';
-
 import { makeStyles } from '@material-ui/core/styles';
 import { Close } from '@material-ui/icons';
 
@@ -20,6 +19,15 @@ const useStyles = makeStyles((theme) => ({
         marginTop: '20px',
     }
 }));
+
+export const loginValidation = (username, password) => {
+    // const regEx = /([^\s*])*([a-zA-Z0-9_])/;
+    const regEx = /^[a-zA-Z0-9_]*$/;
+    if (username.trim().length > 18 || username.trim().length < 6) return false;
+    if (!regEx.test(username.trim())) return false;
+    if (password.trim().length < 1) return false;
+    return true;
+}
 
 function Login(props) {
     const classes = useStyles();
@@ -42,9 +50,7 @@ function Login(props) {
     const onSubmit = async (e) => {
         setSubmitting(true)
         e.preventDefault();
-        if (username.length > 18 || username.length < 6) {
-            setUsernameErr('Validation error...')
-        }
+        if (!loginValidation(username, password)) return;
         await login(username, password, setOpen, setSubmitting);
     }
 

@@ -3,7 +3,7 @@ import { Avatar, Backdrop, Grid, Typography } from '@material-ui/core'
 import { Person } from '@material-ui/icons'
 import { Link } from 'react-router-dom';
 import "./SideNav.css";
-import {useTheme} from '@material-ui/core';
+// import {useTheme} from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 const useStyles = makeStyles((theme) => ({
@@ -24,8 +24,8 @@ function SideNavProvider(props) {
     const [openSideNav, setOpenSideNav] = React.useState(false)
 
     const classes = useStyles();
-    const theme = useTheme();
-    console.log(theme.zIndex)
+    // const theme = useTheme();
+    // console.log(theme.zIndex)
     return (
         <sideNavContext.Provider value={{openSideNav, setOpenSideNav}}>
             {props.children}
