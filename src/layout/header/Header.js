@@ -61,8 +61,8 @@ function Header(props) {
                     <Typography 
                         variant="h6" 
                         className={classes.title}
-                        onClick={openSideNav}>
-                        <span className="header-app-title">Catflix</span>
+                        >
+                        <span onClick={openSideNav} className="header-app-title">Catflix</span>
                     </Typography>
                     {userSession ? 
                         <>
