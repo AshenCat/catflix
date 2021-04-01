@@ -5,6 +5,8 @@ import Header from './layout/Header';
 import Footer from './layout/Footer';
 import { useUserContext } from './context/UserContext'
 import './App.css';
+import { CustomMuiTheme } from './style/CustomMuiTheme';
+import { ThemeProvider } from '@material-ui/core'
 
 
 const App = () => {
@@ -20,9 +22,11 @@ const App = () => {
 
   return (
     <div className="App">
-      <Header setSideNav={setSideNav} />
-      <Body sideNav={sideNav} setSideNav={setSideNav} />
-      <Footer />
+      <ThemeProvider theme={CustomMuiTheme}>
+        <Header setSideNav={setSideNav} />
+        <Body sideNav={sideNav} setSideNav={setSideNav} />
+        <Footer />
+      </ThemeProvider>
     </div>
   )
 }
