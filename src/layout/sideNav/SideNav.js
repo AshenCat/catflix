@@ -3,8 +3,8 @@ import { DashboardRounded, DashboardTwoTone, Person } from '@material-ui/icons'
 import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import "./SideNav.css"
-
-import { makeStyles } from '@material-ui/core/styles';
+import {useTheme} from '@material-ui/core';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 
 const useStyles = makeStyles((theme) => ({
   backdrop: {
@@ -16,13 +16,15 @@ const useStyles = makeStyles((theme) => ({
 
 function SideNav(props) {
     const classes = useStyles();
+    const theme = useTheme();
+    console.log(theme)
     return (
         <>
             {/* <div id="sidenav" 
                 className={`${props.open ? 'backdrop bkd-open' : 'backdrop' }`}
                 onClick={()=>props.setSideNav(false)}/> */}
             <Backdrop open={props.open} onClick={()=>props.setSideNav(false)} className={classes.backdrop}>
-            <nav id="sideNav" className={`${props.open ? 'sidenav open' : 'sidenav close'}`}>
+            <nav id="sideNav" className={`${props.open ? 'sidenav open' : 'sidenav close'}`} style={{background:theme.palette.primary.main}}>
                 <Grid container justify="center" spacing={2} style={{marginBottom: "1rem"}}>
                     <Grid container item justify="center"> 
                         <Avatar>
