@@ -1,19 +1,20 @@
-import React from 'react'
-import { AppBar, Toolbar, IconButton, Button, Typography, Menu, MenuItem, ButtonGroup } from '@material-ui/core'
+import React from 'react';
+import { AppBar, Toolbar, IconButton, Button, Typography, Menu, MenuItem } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import MenuIcon  from '@material-ui/icons/Menu'
-import AccountCircle  from '@material-ui/icons/AccountCircle'
+import MenuIcon  from '@material-ui/icons/Menu';
+import AccountCircle  from '@material-ui/icons/AccountCircle';
+import "./header.css";
 import { withRouter, Link } from 'react-router-dom';
-import { useUserContext } from '../context/UserContext';
-import { useSideNavContext } from '../context/SideNavContext';
+import { useUserContext } from '../../context/UserContext';
+import { useSideNavContext } from '../../context/SideNavContext';
 
 const useStyles = makeStyles((theme) => ({
     // root: {
     //   flexGrow: 1,
     // },
-    menuButton: {
-      marginRight: theme.spacing(2),
-    },
+    // menuButton: {
+    //   marginRight: theme.spacing(2),
+    // },
     title: {
       flexGrow: 1,
     },
@@ -38,6 +39,12 @@ function Header(props) {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    const openSideNav = () => {
+        if(userSession) setOpenSideNav(true);
+        else props.history.push('/')
+    }
+
     return (
         <header>
             <AppBar position="static">
@@ -48,18 +55,21 @@ function Header(props) {
                         className={classes.menuButton} 
                         color="inherit" 
                         aria-label="menu"
-                        onClick={()=>setOpenSideNav(true)}>
+                        onClick={openSideNav}>
                         <MenuIcon />
                     </IconButton> : null}
-                    <Typography variant="h6" className={classes.title} >
-                        <Link 
-                            to={userSession ? "/Dashboard" : "/Home"} 
-                            style={{"textDecoration": "none", "color": "inherit"}}>
-                                Catflix
-                        </Link>
+                    <Typography 
+                        variant="h6" 
+                        className={classes.title}
+                        onClick={openSideNav}>
+                        <span className="header-app-title">Catflix</span>
                     </Typography>
                     {userSession ? 
-                        <div>
+                        <>
+                            <Typography className="header-username"
+                                onClick={handleMenu}>
+                                {userSession.username}
+                            </Typography>
                             <IconButton
                                 id="popup"
                                 aria-label="account of current user"
@@ -67,22 +77,19 @@ function Header(props) {
                                 aria-haspopup="true"
                                 onClick={handleMenu}
                                 color="inherit">
-                                <Typography className={classes.menuButton}>
-                                    {userSession.username}
-                                </Typography>
                                 <AccountCircle />
                             </IconButton>
                             <Menu
                                 id="menu-appbar"
                                 anchorEl={anchorEl}
                                 anchorOrigin={{
-                                  vertical: 'top',
-                                  horizontal: 'right',
+                                  vertical: 'center',
+                                  horizontal: 'center',
                                 }}
                                 keepMounted
                                 transformOrigin={{
-                                  vertical: 'top',
-                                  horizontal: 'right',
+                                  vertical: 'center',
+                                  horizontal: 'center',
                                 }}
                                 open={open}
                                 onClose={handleClose}>
@@ -90,14 +97,12 @@ function Header(props) {
                                 <MenuItem onClick={handleClose} component={Link} to="/Profile">Profile</MenuItem>
                                 <MenuItem onClick={()=>{handleClose(); logout();}}>Logout</MenuItem> 
                             </Menu>
-                        </div>
+                        </>
                          :
-                    <div>
-                        <ButtonGroup disableElevation variant="outlined" color="inherit">
-                            <Button onClick={()=>goTo('/Login')}>Login</Button>
-                            <Button onClick={()=>goTo('/Register')}>Register</Button>
-                        </ButtonGroup>
-                    </div>
+                    <>
+                        <Button onClick={()=>goTo('/Login')} className="header-button-base">Login</Button>
+                        <Button onClick={()=>goTo('/Register')} variant="contained" className="header-button-contained">Register</Button>
+                    </>
                     }
                 </Toolbar>
             </AppBar>

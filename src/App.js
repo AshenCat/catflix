@@ -1,8 +1,8 @@
 import React from 'react';
 import { useRouteMatch, withRouter } from 'react-router-dom';
 import Body from './layout/Body';
-import Header from './layout/Header';
-import Footer from './layout/Footer';
+import Header from './layout/header/Header';
+import Footer from './layout/footer/Footer';
 import { useUserContext } from './context/UserContext'
 import './App.css';
 import { CustomMuiTheme } from './style/CustomMuiTheme';
