@@ -1,0 +1,43 @@
+.sidenav {
+    height: 100%;
+    position: fixed;
+    z-index: 2001;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    transition: 0.3s;
+    padding-top: 60px;
+    width: 0;
+    box-shadow: 11px 2px 12px -4px rgba(0,0,0,0.75);
+    backdrop-filter: blur(10px);
+}
+
+.sideNav-username {
+    color: white;
+    width: 200px;
+    text-align: center;
+}
+
+.sideNav-open {
+    width: 250px;
+}
+
+.sideNav-link {
+    text-decoration: none;
+    color: #fff;
+    transition: .3s;
+    width: 100%;
+    text-align: center;
+    padding-right: 2rem;
+}
+
+.sideNav-link:hover {
+    color: #999;
+}
+
+.sideNav-nav-item {
+    border-top: 1px solid rgb(88, 88, 88);
+    height: 4rem;
+    display:grid;
+    place-items: center;
+}

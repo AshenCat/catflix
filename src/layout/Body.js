@@ -4,7 +4,6 @@ import { Route } from 'react-router-dom';
 import Home from './pages/Home'
 // import Register from './pages/Register'
 // import Profile from './pages/Profile'
-import SideNav from './sideNav/SideNav';
 
 export default function Body(props) {
     const Login = React.lazy(()=>import('./pages/Login'))
@@ -13,7 +12,6 @@ export default function Body(props) {
 
     return (
         <main style={{flex: 1}}>
-            <SideNav open={props.sideNav}  setSideNav={props.setSideNav} />
             <Route exact path='/Home' component={Home} />
             <React.Suspense fallback={<p>Loading...</p>}>
                 <Route exact path='/Login' component={Login} />

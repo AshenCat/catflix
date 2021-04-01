@@ -5,6 +5,7 @@ import MenuIcon  from '@material-ui/icons/Menu'
 import AccountCircle  from '@material-ui/icons/AccountCircle'
 import { withRouter, Link } from 'react-router-dom';
 import { useUserContext } from '../context/UserContext';
+import { useSideNavContext } from '../context/SideNavContext';
 
 const useStyles = makeStyles((theme) => ({
     // root: {
@@ -24,6 +25,7 @@ function Header(props) {
     const open = Boolean(anchorEl);
 
     const {userSession, logout} = useUserContext();
+    const {setOpenSideNav} = useSideNavContext();
 
     const goTo = (where) => {
         props.history.push(where)
@@ -46,7 +48,7 @@ function Header(props) {
                         className={classes.menuButton} 
                         color="inherit" 
                         aria-label="menu"
-                        onClick={()=>props.setSideNav(true)}>
+                        onClick={()=>setOpenSideNav(true)}>
                         <MenuIcon />
                     </IconButton> : null}
                     <Typography variant="h6" className={classes.title} >

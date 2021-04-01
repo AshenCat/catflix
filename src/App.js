@@ -7,10 +7,10 @@ import { useUserContext } from './context/UserContext'
 import './App.css';
 import { CustomMuiTheme } from './style/CustomMuiTheme';
 import { ThemeProvider } from '@material-ui/core'
+import SideNavProvider from './context/SideNavContext';
 
 
 const App = () => {
-  const [sideNav, setSideNav] = React.useState(false)
 
   const match = useRouteMatch();
   const { checkAuth } = useUserContext();
@@ -23,9 +23,11 @@ const App = () => {
   return (
     <div className="App">
       <ThemeProvider theme={CustomMuiTheme}>
-        <Header setSideNav={setSideNav} />
-        <Body sideNav={sideNav} setSideNav={setSideNav} />
-        <Footer />
+        <SideNavProvider>
+          <Header />
+          <Body />
+          <Footer />
+        </SideNavProvider>
       </ThemeProvider>
     </div>
   )
