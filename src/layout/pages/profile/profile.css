@@ -1,0 +1,188 @@
+.h-100 {
+    height: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+/*********************************************************** 
+USER PROFILE SECTION CSS
+***********************************************************/
+
+.profile-avatar-container {
+    position: relative;
+}
+
+.profile-avatar {
+    fill: white;
+    margin: 0 auto;
+}
+
+.profile-user {
+    /* background: #1F1F1F; */
+    color: white;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.com/svgjs' width='1440' height='560' preserveAspectRatio='none' viewBox='0 0 1440 560'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1732%26quot%3b)' fill='none'%3e%3crect width='1440' height='560' x='0' y='0' fill='url(%23SvgjsLinearGradient1733)'%3e%3c/rect%3e%3cpath d='M-104.61 357.24C46.74 354.05 171.2 147.92 464.38 150.04 757.56 152.16 848.33 608.45 1033.37 640.73' stroke='rgba(63%2c 81%2c 181%2c 1)' stroke-width='2'%3e%3c/path%3e%3cpath d='M-243.81 240.51C-122.61 238.59-34.6 80.49 216.87 89.31 468.35 98.13 506.06 589.11 677.56 645.65' stroke='rgba(63%2c 81%2c 181%2c 1)' stroke-width='2'%3e%3c/path%3e%3cpath d='M-253.84 449.23C-85.62 448.78 74.82 331.3 408.69 331.63 742.56 331.96 891.1 609.78 1071.22 615.68' stroke='rgba(63%2c 81%2c 181%2c 1)' stroke-width='2'%3e%3c/path%3e%3cpath d='M-41.5 294.08C144.94 292.18 398.65 90.33 676.52 92.48 954.39 94.63 896.42 515.09 1035.53 568.75' stroke='rgba(63%2c 81%2c 181%2c 1)' stroke-width='2'%3e%3c/path%3e%3cpath d='M-233.24 229.55C-59.08 233.34 81.06 466.88 420.65 470.35 760.24 473.82 908.03 596.46 1074.54 597.04' stroke='rgba(63%2c 81%2c 181%2c 1)' stroke-width='2'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1732'%3e%3crect width='1440' height='560' fill='white'%3e%3c/rect%3e%3c/mask%3e%3clinearGradient x1='0%25' y1='50%25' x2='100%25' y2='50%25' gradientUnits='userSpaceOnUse' id='SvgjsLinearGradient1733'%3e%3cstop stop-color='rgba(43%2c 34%2c 107%2c 1)' offset='0'%3e%3c/stop%3e%3cstop stop-color='rgba(50%2c 64%2c 82%2c 1)' offset='1'%3e%3c/stop%3e%3c/linearGradient%3e%3c/defs%3e%3c/svg%3e");
+    filter: grayscale(100%);
+    padding: 30px 0;
+}
+
+.profile-user-name {
+    margin: 0 auto;
+    height: 2.2rem;
+}
+
+.profile-user-quote {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.profile-icon {
+    font-size: 2rem;
+    padding: 20px;
+    margin: auto;
+    transition: 0.5s;
+}
+
+.profile-icon-container {
+    text-align: center;
+    height: 78px;
+    width: 78px;
+    margin: 5px;
+    margin-top: 10px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255, 0.5);
+    border-right: 1px solid rgba(255,255,255,0.2);
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    box-shadow: 0 5px 45px rgba(0,0,0,0.1);
+    backdrop-filter: blur(2px);
+    transition: 0.5s;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.profile-icon-container:hover {
+    transform:translateY(-10px);
+    cursor: pointer;
+}
+
+.profile-icon-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50px;
+    height: 100%;
+    background: rgba(255,255,255, 0.5);
+    transform: skewX(45deg) translateX(150px);
+    transition: 0.5s;
+}
+
+.profile-icon-container:hover::before {
+    transform: skewX(45deg) translateX(-125px);
+}
+
+/*********************************************************** 
+COMMENT SECTION CSS
+***********************************************************/
+
+.profile-comment-list-container {
+    padding: 40px 15px;
+}
+
+.profile-comment-container {
+    width: 90%;
+    margin: 15px auto;
+}
+
+/************************ 
+parent comment
+*************************/
+
+.profile-comment-parent-container {
+    height: 25px;
+    flex-wrap: nowrap;
+}
+
+.profile-comment-parent-name {
+    margin-left: .15rem;
+    font-size: .75rem;
+    text-decoration: none;
+    color:rgba(0,0,0,0.65);
+}
+
+.profile-comment-parent-name:hover{
+    text-decoration: underline;
+}
+
+.profile-comment-parent-text {
+    margin-left: .25rem;
+    color:rgba(0,0,0,0.65);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: .75rem;
+    white-space: nowrap; 
+    text-decoration: none;
+}
+
+.profile-comment-parent-text:hover{
+    text-decoration: underline;
+}
+
+.profile-comment-parent-avatar {
+    height: 1rem;
+    width: 1rem;
+}
+
+.profile-comment-parent-arrow {
+    margin-left: 10px;
+    position: relative;
+    top: 10px;
+    width: 15px;
+    border-top: 3px solid gray;
+    border-left: 3px solid gray;
+    border-radius: 3px;
+}
+
+/************************ 
+USER comment
+*************************/
+
+.profile-comment-user-container {
+    position: relative;
+    padding-left: 40px;
+}
+
+.profile-comment-user-avatar {
+    position: absolute;
+    left: -7px;
+}
+
+@media only screen and (min-width: 800px) {
+    .profile-margin-on-sm {
+        padding: 5%;
+    }
+    .profile-icon-container {
+        margin: 15px;
+    }
+}
+
+@media only screen and (max-width: 370px) {
+    .profile-icon {
+        padding: 15px;
+    }
+    .profile-icon-container {
+        height: 60px;
+        width: 60px;
+    }
+    .profile-icon {
+        font-size: 1.75rem;
+    }
+    /* .comment-parent-text {
+        width: 50%;
+    } */
+}
+

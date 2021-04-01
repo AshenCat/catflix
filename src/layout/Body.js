@@ -9,7 +9,7 @@ import SideNav from './sideNav/SideNav';
 export default function Body(props) {
     const Login = React.lazy(()=>import('./pages/Login'))
     const Register = React.lazy(()=>import('./pages/Register'))
-    const Profile = React.lazy(()=>import('./pages/Profile'))
+    const Profile = React.lazy(()=>import('./pages/profile/Profile'))
 
     return (
         <main style={{flex: 1}}>
