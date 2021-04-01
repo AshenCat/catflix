@@ -83,13 +83,13 @@ function Header(props) {
                                 id="menu-appbar"
                                 anchorEl={anchorEl}
                                 anchorOrigin={{
-                                  vertical: 'center',
-                                  horizontal: 'center',
+                                  vertical: 'top',
+                                  horizontal: 'left',
                                 }}
                                 keepMounted
                                 transformOrigin={{
-                                  vertical: 'center',
-                                  horizontal: 'center',
+                                  vertical: 'top',
+                                  horizontal: 'right',
                                 }}
                                 open={open}
                                 onClose={handleClose}>
