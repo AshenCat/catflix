@@ -31,6 +31,9 @@ let userSchema = new Schema({
         enum: ["user", "admin", "tech"],
         default: "user"
     },
+    comments: [{
+        
+    }],
     subscriptions: [{
         
     }],

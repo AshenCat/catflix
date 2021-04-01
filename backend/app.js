@@ -28,8 +28,9 @@ mongoose.connect(config.db,
 
 let wstream = fs.createWriteStream(path.join(__dirname, 'access.log'), {flags: 'a'});
 app.use(bodyParser.json());
-app.use(cookieParser())
+// app.use(cookieParser())
 app.use(bodyParser.urlencoded({extended:true}))
+
 app.use(cors({
     origin: config.origin,
     credentials: true
@@ -49,6 +50,7 @@ require('./config/passportConfig')(passport);
 app.use(morgan('common', {stream: wstream}))
 app.use(helmet());
 
+app.use('/api/static', express.static('./media/generic'))
 app.use('/api/user', userRoute)
 app.use('/api/media', mediaRoute)
 
