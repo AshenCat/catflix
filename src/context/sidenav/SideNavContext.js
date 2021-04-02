@@ -2,7 +2,7 @@ import React from 'react';
 import { Avatar, Backdrop, Grid, Typography } from '@material-ui/core'
 import { Person } from '@material-ui/icons'
 import { Link } from 'react-router-dom';
-import "./SideNav.css";
+import "./SideNav.scss";
 // import {useTheme} from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 

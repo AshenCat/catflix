@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid, Paper, makeStyles, Avatar, Typography, createMuiTheme, ThemeProvider } from '@material-ui/core'
 import {withRouter} from 'react-router-dom'
-import './profile.css';
+import './profile.scss';
 import { useUserContext } from '../../../context/UserContext';
 import MessageIcon from '@material-ui/icons/Message';
 import { GroupAdd, PersonAdd } from '@material-ui/icons';

@@ -3,10 +3,10 @@ import { AppBar, Toolbar, IconButton, Button, Typography, Menu, MenuItem } from 
 import { makeStyles } from '@material-ui/core/styles';
 import MenuIcon  from '@material-ui/icons/Menu';
 import AccountCircle  from '@material-ui/icons/AccountCircle';
-import "./header.css";
+import "./header.scss";
 import { withRouter, Link } from 'react-router-dom';
 import { useUserContext } from '../../context/UserContext';
-import { useSideNavContext } from '../../context/SideNavContext';
+import { useSideNavContext } from '../../context/sidenav/SideNavContext';
 
 const useStyles = makeStyles((theme) => ({
     // root: {

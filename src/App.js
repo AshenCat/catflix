@@ -4,10 +4,10 @@ import Body from './layout/Body';
 import Header from './layout/header/Header';
 import Footer from './layout/footer/Footer';
 import { useUserContext } from './context/UserContext'
-import './App.css';
+import './App.scss';
 import { CustomMuiTheme } from './style/CustomMuiTheme';
 import { ThemeProvider } from '@material-ui/core'
-import SideNavProvider from './context/SideNavContext';
+import SideNavProvider from './context/sidenav/SideNavContext';
 
 
 const App = () => {
