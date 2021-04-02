@@ -1,0 +1,154 @@
+$media-sm: 600px;
+$media-md: 960px;
+
+.login-paper-container {
+    max-width: 1250px;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 3rem;
+    height: 480px;
+    transition: .5s;
+}
+
+/* .login-full-container {
+    max-width: 1250px;
+    width: 80%;
+} */
+
+.login-flex-1 {
+    flex: 1
+}
+
+.login-form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 50%;
+    height: 480px;
+    transition: .5s;
+}
+
+.login-form {
+    margin: 0 auto;
+    transition: .5s;
+}
+
+.login-notif {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.login-textfield-container {
+    display: flex;
+    // align-items: center;
+    justify-content: center;
+    transition: .5s;
+}
+
+.login-forgot-password-link {
+    color: inherit;
+    text-decoration: none;
+    transition: .5s;
+}
+
+.login-forgot-password-link:hover {
+    text-decoration: underline;
+    transition: .5s;
+}
+
+.login-button-container {
+    // align-self: flex-end;
+    margin-top: auto !important;
+    margin-bottom: 2rem;
+    transition: .5s;
+}
+
+.login-title-container {
+    margin-top: 30%;
+    margin-bottom: 1rem;
+    transition: .5s;
+}
+
+// .login-forgot-password {
+
+// }
+
+.login-form-button {
+    border-radius: 20px;
+    transition: .5s;
+}
+
+.login-swiping-cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    transition: .5s;
+}
+
+.login-swiper {
+    width: 50%;
+    transition: .5s;
+    background-color: #212121;
+    transition: .5s;
+}
+
+.login-swiper-flex{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    transition: .5s;
+}
+
+.login-login-hide {
+    transform: translateY(-100%);
+    opacity: 0;
+    transition: .25s;
+}
+
+.login-title {
+    color: white;
+    transition: .5s;
+}
+
+.login-swiper-text {
+    flex: 1;
+    width: 80%;
+    margin: 0 auto;
+    transition: .5s;
+    color: white;
+    transition: .5s;
+}
+
+@media only screen and (max-width: $media-sm) {
+    .login-swiping-cards-container {
+        flex-direction: column-reverse;
+    }
+    .login-paper-container {
+        width: 100%;
+        margin-top: 0;
+    }
+    .login-form-container {
+        width: 100%;
+        height: 280px;
+    }
+    .login-swiper {
+        width: 100%;
+        height: 200px;
+        background-color: #555 !important;
+    }
+    .login-swiper-title {
+        margin-top: 10% !important;
+    }
+    .login-title-container {
+        margin-top:5%;
+    }
+    .login-button-container {
+        margin-top: 1rem !important;
+    }
+}
+
+@media only screen and (min-width: $media-md) {
+    .login-notif {
+        width: 60%;
+    }
+}
