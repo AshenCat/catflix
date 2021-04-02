@@ -1,24 +1,11 @@
 import React from 'react';
-import { Grid, TextField, Container, Button, Paper, Typography, Collapse, IconButton, CircularProgress } from '@material-ui/core';
-import { withRouter } from 'react-router-dom';
+import { TextField,  Button, Paper, Typography, Collapse, IconButton, CircularProgress } from '@material-ui/core';
+import { Link, withRouter } from 'react-router-dom';
 import { useUserContext } from '../../../context/UserContext'
 import Alert from '@material-ui/lab/Alert';
-import { makeStyles } from '@material-ui/core/styles';
 import { Close } from '@material-ui/icons';
+import "./login.scss"
 
-const useStyles = makeStyles((theme) => ({
-    marginTop: {
-      marginTop: '2rem',
-    },
-    gridBorderLeft: {
-        borderLeft: '1px solid lightgray',
-        margin: '3rem 0',
-        padding: '0 3rem'
-    },
-    mt20: {
-        marginTop: '20px',
-    }
-}));
 
 export const loginValidation = (username, password) => {
     // const regEx = /([^\s*])*([a-zA-Z0-9_])/;
@@ -30,13 +17,11 @@ export const loginValidation = (username, password) => {
 }
 
 function Login(props) {
-    const classes = useStyles();
 
     const { userSession, login } = useUserContext();
 
     const [username, setUsername] = React.useState("");
     const [password, setPassword] = React.useState("");
-    const [usernameErr, setUsernameErr] = React.useState('');
     const [submitting, setSubmitting] = React.useState(false);
     
     const [open, setOpen] = React.useState(false);
@@ -50,76 +35,146 @@ function Login(props) {
     const onSubmit = async (e) => {
         setSubmitting(true)
         e.preventDefault();
-        if (!loginValidation(username, password)) return;
-        await login(username, password, setOpen, setSubmitting);
+        if (!loginValidation(username, password)) {
+            console.log('yes')
+            setOpen(true);
+            setSubmitting(false)
+            return;
+        }
+        else {
+            await login(username, password, setOpen, setSubmitting);
+        }
     }
 
     return (
-        <Container>
-            <Paper>
-                <Grid container className={classes.marginTop}>
-                    <Grid item xs={12} sm={8} container>
-                    </Grid>
-                    <Grid item xs={12} sm={4} container>
-                        <div className={classes.gridBorderLeft}>
-                            <Collapse in={open}>
-                                <Alert
-                                    severity="error"
-                                    action={
-                                        <IconButton
-                                            aria-label="close"
-                                            color="inherit"
-                                            size="small"
-                                            onClick={() => {
-                                              setOpen(false);
-                                            }}>
-                                          <Close fontSize="inherit" />
-                                        </IconButton>
-                                    }>
-                                  Failed to login
-                                </Alert>
-                            </Collapse>
-                            <Typography variant="h4">Login</Typography>
-                            <form noValidate onSubmit={onSubmit}>
-                                <div className={classes.mt20}>
-                                    <TextField
-                                        onChange={(e)=>{setUsername(e.target.value); setUsernameErr('');}}
-                                        label="Username" 
-                                        value={username}
-                                        error={usernameErr !== ''}
-                                        helperText={usernameErr}
-                                        variant="outlined"
-                                        required />
-                                </div>
-                                <div className={classes.mt20}>
-                                    <TextField
-                                        variant="outlined"
-                                        className="centered"
-                                        onChange={(e)=>{setPassword(e.target.value); /*setPasswordErr(false);*/}}
-                                        // error={passwordErr}
-                                        value={password}
-                                        label="Password"
-                                        type="password"
-                                        required />
-                                </div>
-                                <div>
-                                    <Button 
-                                        type="submit" 
-                                        className={classes.mt20} 
-                                        variant="contained" 
-                                        size="large" 
-                                        color="primary" 
-                                        disabled={submitting}>
-                                        {submitting ? <CircularProgress />: 'Login'}
-                                    </Button>
-                                </div>
-                            </form>
-                            </div>
-                    </Grid>
-                </Grid>
-            </Paper>
-        </Container>
+        <Paper className="login-paper-container">
+            <div className="login-swiping-cards-container">
+                <div className="login-form-container">
+                    <div className="login-title-container">
+                        <Typography align="center" variant="h4">
+                            Login
+                        </Typography>
+                    </div>
+                    <div className="login-notif">
+                        <Collapse in={open}>
+                            <Alert
+                                severity="error"
+                                action={
+                                    <IconButton
+                                        aria-label="close"
+                                        color="inherit"
+                                        size="small"
+                                        onClick={() => {
+                                          setOpen(false);
+                                        }}>
+                                      <Close fontSize="inherit" />
+                                    </IconButton>
+                                }>
+                              Failed to login
+                            </Alert>
+                        </Collapse> 
+                    </div>
+                    <div className="login-textfield-container" style={{marginTop: "1rem"}}>
+                        <TextField
+                            className="login-form-textfield"
+                            onChange={(e)=>{setUsername(e.target.value);}}
+                            label="Username" 
+                            size="small"
+                            value={username}
+                            // variant="outlined"
+                            required />
+                    </div>
+                    <div className="login-textfield-container">
+                        <TextField
+                            className="login-form-textfield"
+                            // variant="outlined"
+                            size="small"
+                            onChange={(e)=>{setPassword(e.target.value);}}
+                            // error={passwordErr}
+                            value={password}
+                            label="Password"
+                            type="password"
+                            required />
+                    </div>
+                    <div className="login-textfield-container" >
+                        <Typography className="login-forgot-password">
+                            <Link className="login-forgot-password-link"><small>Forgot your password?</small></Link>
+                        </Typography>
+                    </div>
+                    <div className="login-textfield-container login-button-container" style={{marginTop: ".5rem"}}>
+                        <Button 
+                            className="login-form-button" 
+                            onClick={onSubmit}
+                            variant="contained" 
+                            size="large" 
+                            color="primary" 
+                            disabled={submitting}>
+                            {submitting ? <CircularProgress />: 'Login'}
+                        </Button>
+                    </div>
+                </div>
+                <div className="login-swiper">
+                    <div className="login-swiper-flex">
+                        <div className="login-title-container login-swiper-title">
+                            <Typography align="center" variant="h4" className="login-title">
+                                Hola, friend!
+                            </Typography>
+                        </div>
+                        <div className="">
+                            <Typography align="center" className="login-swiper-text">Enter your login info and start your journey with us</Typography>
+                        </div>
+                        <div className="login-textfield-container login-button-container">
+                            <Button 
+                                className="login-form-button" 
+                                variant="contained" 
+                                size="large">
+                                Sign Up
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </Paper>
     )
 }
 
 export default withRouter(Login)
+
+// eslint-disable-next-line no-lone-blocks
+{/* 
+<form noValidate onSubmit={onSubmit}>
+                            <div className="">
+                                <TextField
+                                    onChange={(e)=>{setUsername(e.target.value); setUsernameErr('');}}
+                                    label="Username" 
+                                    size="small"
+                                    value={username}
+                                    error={usernameErr !== ''}
+                                    helperText={usernameErr}
+                                    variant="outlined"
+                                    required />
+                            </div>
+                            <div className="">
+                                <TextField
+                                    variant="outlined"
+                                    className="centered"
+                                    size="small"
+                                    onChange={(e)=>{setPassword(e.target.value);}
+                                    // error={passwordErr}
+                                    value={password}
+                                    label="Password"
+                                    type="password"
+                                    required />
+                            </div>
+                            <div>
+                                <Button 
+                                    type="submit" 
+                                    className="" 
+                                    variant="contained" 
+                                    size="medium" 
+                                    color="primary" 
+                                    disabled={submitting}>
+                                    {submitting ? <CircularProgress />: 'Login'}
+                                </Button>
+                            </div>
+                        </form> */}
