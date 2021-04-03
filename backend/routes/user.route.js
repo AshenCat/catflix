@@ -6,60 +6,68 @@ const saltRounds = 10;
 
 const server = express.Router()
 
-function isValid(str){
-    return !/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]\s/g.test(str);
-   }
+function isUsernameValid(username){
+    // return !/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]\s/g.test(username);
+    return /^[a-zA-Z0-9_]{6,18}$/.test(username)
+}
 
+function isPasswordValid(password){
+    return /[^\s\/'"[{\]}()*<>;]{6,18}/.test(password)
+}
+
+function isEmailValid(email){
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+}
 
 server.route('/')
     .put((req, res, next)=>{
         /*
             REMINDER: VALIDATION
         */
-        if (req.body.username.length < 6 || req.body.username > 18 || !isValid(req.body.username)){
-            res.json({msg: 'Username validation failed!', payload: 'username'})
+        if(!isUsernameValid(req.body.username)) {
+            res.json({msg: "Failed to create user", payload: "invalid username"});
         }
-        else if (req.body.password.length < 6 || req.body.password > 18 || !isValid(req.body.password)){
-            res.json({msg: 'Password validation failed!', payload: 'password'})
+        else if (!isPasswordValid(req.body.password)) {
+            res.json({msg: "Failed to create user", payload: "invalid password"})
         }
-        else
-            User.findOne({username: req.body.username}, (err, doc) => {
-            if(err) {
-                res.status(500);
-                next(err);
-            }
-            else {
-                if (doc) res.json({msg: "Username already taken!", payload: 'username'});
-                else {
-                    bcrypt.genSalt(saltRounds, (err, salt) => {
-                        if(err) {
-                            res.status(500);
-                            next(err);
-                        }
-                        else bcrypt.hash(req.body.password, salt, (err, hash) => {
-                            if(err) {
+        else if (!isEmailValid(req.body.email)) {
+            res.json({msg: "Failed to create user", payload: "invalid email"})
+        }
+        else 
+            User.findOne().or([{username: req.body.username}, {email: req.body.email}])
+                .then(user => {
+                    // console.log(user)
+                    if (user?.username === req.body.username) res.json({msg: "Failed to create user", payload: 'username already taken'});
+                    else if (user?.email === req.body.email) res.json({msg: "Failed to create user", payload: 'email already taken'})
+                    else {
+                        bcrypt.genSalt(saltRounds, (err, salt) => {
+                            if (err) {
                                 res.status(500);
                                 next(err);
                             }
-                             else {
-                                let user = {
-                                    username: req.body.username,
-                                    password: hash,
-                                    access: req.user === "admin" ? req.body.access : "user",
+                            bcrypt.hash(req.body.password, salt, (err, hash) => {
+                                if (err) {
+                                    res.status(500);
+                                    next(err);
                                 }
-                                User.create(user, (err, doc) => {
-                                    if(err) {
-                                        res.status(500);
-                                        next(err);
+                                else {
+                                    let user = {
+                                        username: req.body.username,
+                                        password: hash,
+                                        access: req.user === "admin" ? req.body.access : "user",
                                     }
-                                    else res.json({msg: "User successfully created!", payload: {...user, password: undefined}});
-                                })
-                            }
+                                    User.create(user, (err, doc) => {
+                                        if(err) {
+                                            res.status(500);
+                                            next(err);
+                                        }
+                                        else res.json({msg: "User successfully created!", payload: {...user, password: undefined}});
+                                    })
+                                }
+                            })         
                         })
-                    })
-                }
-            }
-        })
+                    }
+                });
     })
     .post((req, res) => {
         if(req.user) console.log("Auth success");
@@ -98,6 +106,7 @@ server.route('/login')
                                 username: user.username,
                                 access: user.access,
                                 avatar: user.avatar,
+                                email: user.email,
                                 quote: req.user.quote,
                                 createdAt: user.createdAt,
                                 updatedAt: user.updatedAt,

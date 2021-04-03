@@ -15,6 +15,8 @@ test("password validation", () => {
     expect(RegisterPasswordValidation('')).toBe(false);
     expect(RegisterPasswordValidation('aaaaa')).toBe(false);
     expect(RegisterPasswordValidation('aaaaa ')).toBe(false);
+    expect(RegisterPasswordValidation(`aaaaa\\`)).toBe(false);
+    expect(RegisterPasswordValidation(`*aaaa*`)).toBe(false);
     expect(RegisterPasswordValidation('aaaaa_')).toBe(true);
     expect(RegisterPasswordValidation('aaaaaa')).toBe(true);
 })
