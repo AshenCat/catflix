@@ -7,7 +7,7 @@ import Home from './pages/Home'
 
 export default function Body(props) {
     const Login = React.lazy(()=>import('./pages/login/Login'))
-    const Register = React.lazy(()=>import('./pages/Register'))
+    const Register = React.lazy(()=>import('./pages/register/Register'))
     const Profile = React.lazy(()=>import('./pages/profile/Profile'))
 
     return (

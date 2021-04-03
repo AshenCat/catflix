@@ -7,13 +7,14 @@ import { Close } from '@material-ui/icons';
 import "./login.scss"
 
 
-export const loginValidation = (username, password) => {
+export const loginUsernameValidation = (username) => {
     // const regEx = /([^\s*])*([a-zA-Z0-9_])/;
-    const regEx = /^[a-zA-Z0-9_]*$/;
-    if (username.trim().length > 18 || username.trim().length < 6) return false;
-    if (!regEx.test(username.trim())) return false;
-    if (password.trim().length < 1) return false;
-    return true;
+    const regEx = /[a-zA-Z0-9_]{6,18}/;
+   return regEx.test(username.trim());
+}
+
+export const loginPasswordValidation = (password) => {
+    return password.trim().length > 0;
 }
 
 function Login(props) {
@@ -35,7 +36,7 @@ function Login(props) {
     const onSubmit = async (e) => {
         setSubmitting(true)
         e.preventDefault();
-        if (!loginValidation(username, password)) {
+        if (!loginUsernameValidation(username) && !loginPasswordValidation(password)) {
             console.log('yes')
             setOpen(true);
             setSubmitting(false)
@@ -44,6 +45,10 @@ function Login(props) {
         else {
             await login(username, password, setOpen, setSubmitting);
         }
+    }
+
+    const moveToRegister = () => {
+        props.history.push('register')
     }
 
     return (
@@ -101,7 +106,7 @@ function Login(props) {
                             <Link className="login-forgot-password-link"><small>Forgot your password?</small></Link>
                         </Typography>
                     </div>
-                    <div className="login-textfield-container login-button-container" style={{marginTop: ".5rem"}}>
+                    <div className="login-textfield-container login-button-container">
                         <Button 
                             className="login-form-button" 
                             onClick={onSubmit}
@@ -109,7 +114,7 @@ function Login(props) {
                             size="large" 
                             color="primary" 
                             disabled={submitting}>
-                            {submitting ? <CircularProgress />: 'Login'}
+                            {submitting ? <CircularProgress />: 'Sign In'}
                         </Button>
                     </div>
                 </div>
@@ -117,17 +122,27 @@ function Login(props) {
                     <div className="login-swiper-flex">
                         <div className="login-title-container login-swiper-title">
                             <Typography align="center" variant="h4" className="login-title">
-                                Hola, friend!
+                                Welcome!
                             </Typography>
                         </div>
                         <div className="">
-                            <Typography align="center" className="login-swiper-text">Enter your login info and start your journey with us</Typography>
+                            <Typography align="center" className="login-swiper-text">
+                                {/* Enter your login info and start your journey with us */}
+                                To keep connected with us please login with your personal info
+                            </Typography>
+                        </div>
+                        <div className="">
+                            <Typography align="center" className="login-swiper-text">
+                                {/* Enter your login info and start your journey with us */}
+                                <small>Don't have an account?</small>
+                            </Typography>
                         </div>
                         <div className="login-textfield-container login-button-container">
                             <Button 
                                 className="login-form-button" 
                                 variant="contained" 
-                                size="large">
+                                size="large"
+                                onClick={moveToRegister}>
                                 Sign Up
                             </Button>
                         </div>

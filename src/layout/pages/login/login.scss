@@ -1,12 +1,15 @@
 $media-sm: 600px;
 $media-md: 960px;
+$card-height: 480px;
+$color-primary: #212121;
+$color-text-primary: white;
 
 .login-paper-container {
     max-width: 1250px;
     width: 80%;
     margin: 0 auto;
     margin-top: 3rem;
-    height: 480px;
+    height: $card-height;
     transition: .5s;
 }
 
@@ -24,7 +27,7 @@ $media-md: 960px;
     flex-direction: column;
     justify-content: center;
     width: 50%;
-    height: 480px;
+    height: $card-height;
     transition: .5s;
 }
 
@@ -59,12 +62,12 @@ $media-md: 960px;
 .login-button-container {
     // align-self: flex-end;
     margin-top: auto !important;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
     transition: .5s;
 }
 
 .login-title-container {
-    margin-top: 30%;
+    margin-top: 15%;
     margin-bottom: 1rem;
     transition: .5s;
 }
@@ -86,9 +89,9 @@ $media-md: 960px;
 
 .login-swiper {
     width: 50%;
+    transition-delay: 1s;
     transition: .5s;
-    background-color: #212121;
-    transition: .5s;
+    background-color: $color-primary;
 }
 
 .login-swiper-flex{
@@ -96,6 +99,7 @@ $media-md: 960px;
     flex-direction: column;
     justify-content: center;
     height: 100%;
+    transition-delay: 1s;
     transition: .5s;
 }
 
@@ -106,7 +110,7 @@ $media-md: 960px;
 }
 
 .login-title {
-    color: white;
+    color: $color-text-primary;
     transition: .5s;
 }
 
@@ -114,36 +118,28 @@ $media-md: 960px;
     flex: 1;
     width: 80%;
     margin: 0 auto;
-    transition: .5s;
-    color: white;
+    color: $color-text-primary;
+    margin-top: 2rem;
     transition: .5s;
 }
 
 @media only screen and (max-width: $media-sm) {
-    .login-swiping-cards-container {
-        flex-direction: column-reverse;
-    }
+    // .login-swiping-cards-container {
+    //     flex-direction: column-reverse;
+    // }
     .login-paper-container {
         width: 100%;
         margin-top: 0;
+        height: 700px;
     }
     .login-form-container {
         width: 100%;
-        height: 280px;
+        height: $card-height;
     }
     .login-swiper {
         width: 100%;
-        height: 200px;
+        height: 300px;
         background-color: #555 !important;
-    }
-    .login-swiper-title {
-        margin-top: 10% !important;
-    }
-    .login-title-container {
-        margin-top:5%;
-    }
-    .login-button-container {
-        margin-top: 1rem !important;
     }
 }
 
