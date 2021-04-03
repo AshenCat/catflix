@@ -95,7 +95,7 @@ function Header(props) {
                                 onClose={handleClose}>
                                 <MenuItem onClick={handleClose} component={Link} to="/Account">My account</MenuItem>
                                 <MenuItem onClick={handleClose} component={Link} to="/Profile">Profile</MenuItem>
-                                <MenuItem onClick={()=>{handleClose(); logout();}}>Logout</MenuItem> 
+                                <MenuItem onClick={()=>{handleClose(); logout(); props.history.push('/')}}>Logout</MenuItem> 
                             </Menu>
                         </>
                          :
