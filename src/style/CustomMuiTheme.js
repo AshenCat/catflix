@@ -9,9 +9,9 @@ export const CustomMuiTheme = createMuiTheme(({
         secondary: {
             main: blueGrey[800],
         },
-        text: {
-            primary: "#ffffff",
-            secondary: "#c2c2c2"
-        }
+        // text: {
+        //     primary: "#ffffff",
+        //     secondary: "#c2c2c2"
+        // }
     }
 }))

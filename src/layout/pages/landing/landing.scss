@@ -189,6 +189,10 @@ $media-md: 960px;
     height: 100vh;
 }
 
+.landing-scene-4-text , .landing-scene-1-text {
+    color: white;
+}
+
 @media only screen and (max-width: $media-sm) {
     .landing-scene-1-text {
         padding-left: 2%;

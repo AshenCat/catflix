@@ -8,7 +8,7 @@ function Landing() {
         <>
             <section className="landing-container">
                 <div className="landing-scene-1">
-                    <Typography variant="h1" color="textPrimary" className="landing-scene-1-text">
+                    <Typography variant="h1" className="landing-scene-1-text">
                         Catflix
                     </Typography>
                     <span className="landing-scene-1-text">A place where you can meme</span>
@@ -70,7 +70,7 @@ function Landing() {
             </section>
             <section>
                 <div className="landing-scene-4">
-                    <Typography variant="h4" color="textPrimary" align="center"> So start using Catflix today!</Typography>
+                    <Typography variant="h4" align="center" className="landing-scene-4-text"> So start using Catflix today!</Typography>
                 </div>
             </section>
         </>
