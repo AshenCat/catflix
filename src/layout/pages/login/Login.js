@@ -103,7 +103,7 @@ function Login(props) {
                     </div>
                     <div className="login-textfield-container" >
                         <Typography className="login-forgot-password">
-                            <Link className="login-forgot-password-link"><small>Forgot your password?</small></Link>
+                            <Link to="/forgotpassword" className="login-forgot-password-link"><small>Forgot your password?</small></Link>
                         </Typography>
                     </div>
                     <div className="login-textfield-container login-button-container">
