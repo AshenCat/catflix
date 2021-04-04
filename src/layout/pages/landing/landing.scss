@@ -86,6 +86,7 @@ $media-md: 960px;
     display: flex;
     // justify-content: center;
     flex-wrap: wrap;
+    height: fit-content;
 }
 
 .landing-scene-3-card {
@@ -123,13 +124,15 @@ $media-md: 960px;
 }
 
 .landing-scene-3 {
-    padding: 4rem 0;
+    display: flex;
+    justify-content: center;
+    padding: 12rem 0;
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.com/svgjs' width='1440' height='560' preserveAspectRatio='none' viewBox='0 0 1440 560'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1077%26quot%3b)' fill='none'%3e%3crect width='1440' height='560' x='0' y='0' fill='rgba(255%2c 255%2c 255%2c 1)'%3e%3c/rect%3e%3cpath d='M 0%2c157 C 288%2c126.4 1152%2c34.6 1440%2c4L1440 560L0 560z' fill='rgba(147%2c 147%2c 147%2c 1)'%3e%3c/path%3e%3cpath d='M 0%2c496 C 57.6%2c462.6 172.8%2c319 288%2c329 C 403.2%2c339 460.8%2c543.4 576%2c546 C 691.2%2c548.6 748.8%2c344.6 864%2c342 C 979.2%2c339.4 1036.8%2c518.6 1152%2c533 C 1267.2%2c547.4 1382.4%2c437.8 1440%2c414L1440 560L0 560z' fill='rgba(47%2c 47%2c 47%2c 1)'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1077'%3e%3crect width='1440' height='560' fill='white'%3e%3c/rect%3e%3c/mask%3e%3c/defs%3e%3c/svg%3e");
     background-repeat: no-repeat;
     background-size: cover;
+    height: 100vh;
     // background-position: center bottom;
     padding-bottom: 12rem;
-    overflow: hidden;
 }
 
 .landing-scene-3-card-image {
@@ -196,5 +199,8 @@ $media-md: 960px;
     }
     .landing-scene-2-text-container {
         text-align: center;
+    }
+    .landing-scene-3 {
+        overflow-x: hidden;
     }
 }
