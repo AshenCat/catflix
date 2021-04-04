@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 const expressSession = require('express-session');
 const passport = require('passport');
 const helmet = require('helmet');  
@@ -18,18 +18,20 @@ const app = express();
 
 const port = 7172;
 
-mongoose.connect(config.db, 
-    {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true})
-    .then(()=>{
-        console.log("Successfully connected to the database!");
-    }, err=>{
-        console.log("Err: ", err)
-    })
+mongoose.connect(config.db, {
+    useNewUrlParser: true, 
+    useUnifiedTopology: true, 
+    useCreateIndex: true
+    }).then(()=>{
+            console.log("Successfully connected to the database!");
+        }, err=>{
+            console.log("Err: ", err)
+        })
 
 let wstream = fs.createWriteStream(path.join(__dirname, 'access.log'), {flags: 'a'});
-app.use(bodyParser.json());
+app.use(express.json());
 // app.use(cookieParser())
-app.use(bodyParser.urlencoded({extended:true}))
+app.use(express.urlencoded({extended:true}))
 
 app.use(cors({
     origin: config.origin,

@@ -12,7 +12,7 @@ export const RegisterUsernameValidation = (username) => {
 }
 
 export const RegisterPasswordValidation = (password) => {
-    const regExPassword = /[^\s\/'"[{\]}()*<>;]{6,18}/;
+    const regExPassword = /[^\s\\/'"[{\]}()*<>;]{6,18}/;
     return regExPassword.test(password.trim());
 }
 
@@ -63,7 +63,7 @@ function Register(props) {
         if (RegisterValidation()) {
             setSubmitting(true);
             // setTimeout(()=>{
-                Axios.put(`${target}/api/user`, {username, password}, {withCredentials: true})
+                Axios.put(`${target}/api/user`, {username, password, email}, {withCredentials: true})
                 .then((res) => {
                     console.log(res.data)
                     setSubmitting(false);
@@ -186,68 +186,3 @@ function Register(props) {
 }
 
 export default withRouter(Register)
-
-// eslint-disable-next-line no-lone-blocks
-{/* <Container>
-            <Paper className={classes.marginTop}>
-                <Grid container>
-                    <Grid container item xs={12} sm={4} className={classes.gridBorderRight}>
-                        <Typography variant="h4">Register</Typography>
-                        <form noValidate onSubmit={onSubmit}>
-                            <div className="mt-20">
-                                <TextField
-                                    onChange={(e)=>{setUsername(e.target.value); setUsernameErr(false);}}
-                                    label="Username" 
-                                    value={username}
-                                    error={usernameErr}
-                                    helperText={usernameErr ? "min: 6 and max: 18" : ""}
-                                    variant="outlined"
-                                    required />
-                            </div>
-                            <div className="mt-20">
-                                <TextField
-                                    variant="outlined"
-                                    className="centered"
-                                    onChange={(e)=>{setPassword(e.target.value); setPasswordErr(false);}}
-                                    error={passwordErr}
-                                    value={password}
-                                    helperText={passwordErr ? "min: 6 and max: 18" : ""}
-                                    label="Password"
-                                    type="password"
-                                    required />
-                            </div>
-                            <div className="mt-20">
-                                <TextField
-                                    variant="outlined"
-                                    className="centered"
-                                    onChange={(e)=>{setPassword1(e.target.value); setPasswordErr1(false);}}
-                                    error={passwordErr1}
-                                    value={password1}
-                                    helperText={passwordErr1 ? "Password doesn't match" : ""}
-                                    label="Re-type password"
-                                    type="password"
-                                    required />
-                            </div>
-                            <div>
-                                <Button type="submit" className="centered mt-20" variant="contained" size="large" color="primary" disabled={submitting}>
-                                    {submitting ? <CircularProgress color="inherit"/> : "Register"}
-                                </Button>
-                            </div>
-                        </form>
-                    </Grid>
-                    <Grid container item xs={12} sm={8}>
-                    </Grid>             
-                </Grid>
-            </Paper>
-            <Dialog
-                open={dialogOpen}
-                onClose={()=> {setDialogOpen(false)}}>
-                <DialogTitle>Success!</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>User <i><b>{username}</b></i> successfully created!</DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={()=>props.history.push('/Login')}>Go to login</Button>
-                </DialogActions>
-            </Dialog>
-        </Container> */}
