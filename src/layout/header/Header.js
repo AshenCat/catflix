@@ -101,7 +101,7 @@ function Header(props) {
                          :
                     <>
                         <Button onClick={()=>goTo('/Login')} className="header-button-base">Login</Button>
-                        <Button onClick={()=>goTo('/Register')} variant="contained" className="header-button-contained">Register</Button>
+                        <Button onClick={()=>goTo('/Register')} size="small" variant="contained" className="header-button-contained">Register</Button>
                     </>
                     }
                 </Toolbar>
