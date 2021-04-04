@@ -45,14 +45,14 @@ function SideNavProvider(props) {
                     </Grid>
                 </Grid>
                 <Typography variant="h5" className="sideNav-nav-item" noWrap>
-                    <Link to="/" className="sideNav-link">
+                    <Link to="/home" className="sideNav-link" onClick={()=>setOpenSideNav(false)}>
                         <Grid container alignItems="center" justify="flex-end" wrap="nowrap">
                         Home
                     </Grid>
                     </Link>
                 </Typography>
                 <Typography variant="h5" className="sideNav-nav-item" noWrap>
-                    <Link to="/" className="sideNav-link">
+                    <Link to="/dashboard" className="sideNav-link" onClick={()=>setOpenSideNav(false)}>
                         <Grid container alignItems="center" justify="flex-end" wrap="nowrap">
                             
                             Dashboard
@@ -60,24 +60,22 @@ function SideNavProvider(props) {
                     </Link>
                 </Typography>
                 <Typography variant="h5" className="sideNav-nav-item" noWrap>
-                    <Link to="/" className="sideNav-link">
+                    <Link to="/subscriptions" className="sideNav-link" onClick={()=>setOpenSideNav(false)}>
                         <Grid container alignItems="center" justify="flex-end" wrap="nowrap">
                             Subscriptions
                         </Grid>
                     </Link>
                 </Typography>
                 <Typography variant="h5" className="sideNav-nav-item" noWrap>
-                    <Link to="/" className="sideNav-link">
+                    <Link to="/account" className="sideNav-link" onClick={()=>setOpenSideNav(false)}>
                         <Grid container alignItems="center" justify="flex-end" wrap="nowrap">
-                            
                             Account
                         </Grid>
                     </Link>
                 </Typography>
                 <Typography variant="h5" className="sideNav-nav-item" noWrap>
-                    <Link to="/" className="sideNav-link">
+                    <Link to="/help" className="sideNav-link" onClick={()=>setOpenSideNav(false)}>
                         <Grid container alignItems="center" justify="flex-end" wrap="nowrap">
-                            
                             Help
                         </Grid>
                     </Link>
