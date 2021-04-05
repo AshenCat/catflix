@@ -1,3 +1,5 @@
 let target = "http://localhost:7172";
 
 export default target
+
+// this is the file sample for target.js

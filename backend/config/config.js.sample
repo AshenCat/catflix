@@ -1,6 +1,8 @@
-const secret = "whatsdapassword"
+const secret = "nottherealsecret"
 const origin = "http://localhost:3000"
 const cloud = "mongo cloud here"
 const local = "mongodb://localhost:27017/memers"
 
 module.exports = {db: local, secret, origin}
+
+// This is the file sample for config.js

@@ -1,5 +1,5 @@
 # Hi, welcome to the Catflix project!
-Catflix is an opensource CMS application using the mern stack
+Catflix is an opensource CMS application using MERN stack.
 
 Since the app is still in the process of development, I'll place the snapshots of the pages here
 
@@ -12,7 +12,20 @@ Front end dependencies:
 backend dependencies:
 ![Back end dependencies](https://github.com/AshenCat/catflix/blob/master/backend/package.json "Back end dependencies")
 
+Dependencies to be added later:
+Socket.io
+Multer
+Image minify on backend
+
+### Needed files that are not included in the git repo
+- Backend
+    - https://github.com/AshenCat/catflix/blob/master/backend/config/config.js.sample
+- Frontend
+    - https://github.com/AshenCat/catflix/blob/master/src/helper/target.js.sample
 ## Project Features task list
+
+Visitors: people of the internet visiting the site
+Users: people who are registered and is using the site
 
 - [x] UI base (landing page, buttons, links, routes) and front end dependencies
 - [x] Backend base (mongoose, express, bcrypt) and backend dependencies
@@ -38,6 +51,9 @@ backend dependencies:
 
 
 More to be added after.
+
+## Project issues
+If I encounter an error or a bug, I'll put it on https://github.com/AshenCat/catflix/issues. Feel free if you see something sketchy
 
 ### Snapshots
 
