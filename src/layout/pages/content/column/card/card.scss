@@ -1,0 +1,19 @@
+$primary-color: #212121;
+$primary-text-color: white;
+
+.card-container {
+    margin: 5px 0;
+    width: 250px;
+    // height: 500px;
+    border-radius: 8px;
+    background: #ddd;
+
+    .card-src-container {
+        border-radius: 8px;
+        overflow: hidden;
+        .card-src {
+            width: 250px;
+        }
+    }
+}
+
