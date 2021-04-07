@@ -27,6 +27,7 @@ $cardSize: 300px;
         @include dFlex(row);
         .upload-media {
             height: $cardSize;
+            min-width: 260px;
             margin: 10px auto;
             border: 3px dashed #a1a1a1;
             @include dFlex(column, center, center, center);
@@ -39,6 +40,7 @@ $cardSize: 300px;
             height: $cardSize;
             padding: 30px;
             margin: 0 auto;
+            min-width: 220px;
             @media only screen and (max-width: 600px) {
                 width: 100%;
                 border-top: 1px solid #c1c1c1;
