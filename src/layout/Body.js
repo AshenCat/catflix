@@ -12,6 +12,7 @@ export default function Body(props) {
     const Profile = React.lazy(()=>import('./pages/profile/Profile'))
     const Dashboard = React.lazy(()=>import('./pages/dashboard/Dashboard'))
     const Home = React.lazy(()=>import('./pages/Home'))
+    const Upload = React.lazy(()=>import('./pages/upload/Upload'))
     return (
         <main style={{flex: 1}}>
             <Route exact path="/" component={Landing} />
@@ -21,6 +22,7 @@ export default function Body(props) {
                 <Route exact path='/Register' component={Register} />
                 <Route exact path='/Profile' component={Profile} />
                 <Route exact path='/Dashboard' component={Dashboard} />
+                <Route exact path='/Upload' component={Upload} />
             </React.Suspense>
         </main>
     )
