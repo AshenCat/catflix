@@ -1,11 +1,15 @@
 import { Chip, MenuItem, Select, TextField, Typography } from '@material-ui/core';
-import { Close, Publish } from '@material-ui/icons';
+import { Close } from '@material-ui/icons';
 import React from 'react';
 import { withRouter } from 'react-router';
+import { useUserContext } from '../../../context/UserContext';
+import DropZone from './dropzone/DropZone';
 import './upload.scss';
 
 function Upload(props) {
+    const { userSession } = useUserContext();
     const [tags, setTags] = React.useState(["memes"])
+    const [selectedFile, setSelectedFile] = React.useState();
 
     const addTag = (e) => {
         setTags([...new Set([...tags, e.target.value])])
@@ -15,17 +19,18 @@ function Upload(props) {
         setTags([...tags].filter(tag=> tag !== remove))
     }
 
+    React.useEffect(()=> {
+        if(!userSession) props.history.push('/');
+    }, [])
+
     return (
         <div className="upload-container">
             <div className="upload-header">
                 <Typography className="upload-title" variant="h5">Upload meme</Typography>
-                <Close style={{position: 'relative', top: '5px'}} />
+                <button className="upload-close" onClick={()=>props.history.goBack()}><Close /></button>
             </div>
             <div className="upload-form">
-                <div className="upload-media">
-                    <Publish />
-                    <Typography >Drop a file to upload or <button>Browse</button></Typography>
-                </div>
+                <DropZone selectedFile={selectedFile} setSelectedFile={setSelectedFile} />
                 <div className="upload-details">
                     <div className="upload-details-tab">
                         <Typography className="upload-details-tab-item-selected">
