@@ -39,7 +39,7 @@ Users: people who are registered and is using the site
 - [ ] Users must be able to make changes on their profile
     - [x] View user profile
     - [ ] Edit user profile
-- [ ] Visitors must be able to view public content
+- [ ] Visitors must be able to view public content - ONGOING
     - [ ] Users can upvote/downvote contents
     - [ ] Users can comment on a content
 - [ ] Logged in users must be able to manage their contents
@@ -59,21 +59,14 @@ If I encounter an error or a bug, I'll put it on https://github.com/AshenCat/cat
 
 
 
-- '/'
+- '/' - about to be changed soon
   - ![landing page](https://github.com/AshenCat/catflix/blob/master/readme-media/landing.png "Landing page") 
-
-
 
 - '/register'
   - ![register](https://github.com/AshenCat/catflix/blob/master/readme-media/register.png "register page") 
 
-
-
 - '/login'
   - ![login](https://github.com/AshenCat/catflix/blob/master/readme-media/login.png "login page") 
-
-
-
 
 - '/profile'
   - ![profile](https://github.com/AshenCat/catflix/blob/master/readme-media/profile.png "profile page") 
