@@ -26,7 +26,7 @@ export const IsImage = (type) => {
 function Card(props) {
     // console.log(props)
     const isImage = IsImage(GetLastArrayItem(props.data.src))
-    console.log(isImage)
+    // console.log(isImage)
     return (
         <div className="card-container">
             <div className="card-src-container">
