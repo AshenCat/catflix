@@ -1,0 +1,120 @@
+@mixin dFlex($direction, $justify: flex-start, $content: initial, $items: stretch) {
+    flex-wrap: wrap;
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-content: $content;
+    align-items: $items;
+}
+
+$cardSize: 300px;
+
+.upload-container {
+    background: white;
+    margin: 20px auto;
+    width: 85%;
+    max-width: 1180px;
+    border-radius: 5px;
+    padding-bottom: 5px;
+    .upload-header {
+        padding: 10px 15px;
+        @include dFlex(row, space-between);
+        position: relative;
+        border-bottom: 1px solid #a1a1a1;  
+        .upload-close {
+            background: white;
+            border: none;
+            padding: 0;
+            margin: 0;
+            transition: .3s;
+            &:hover {
+                cursor: pointer;
+                color: rgba(0,0,0,.5);
+            }
+        }
+    }
+
+    .upload-form {
+        @include dFlex(row);
+    
+        .upload-details {
+            height: $cardSize;
+            padding: 10px 20px;
+            margin: 0 auto;
+            min-width: 220px;
+            width: 40%;
+            @media only screen and (max-width: 600px) {
+                width: 100%;
+                border-top: 1px solid #c1c1c1;
+            }
+            .upload-details-tab {
+                display:flex;
+
+                .upload-details-tab-item-selected{
+                    border-bottom: 4px solid rgb(130, 255, 130);
+                    font-weight: bold;
+                    padding: 0 5px;
+                }
+                
+                .upload-details-tab-item-blurred{
+                    border-bottom: 4px solid gray;
+                    color: rgba(0,0,0,.5);
+                    padding: 0 5px;
+                }
+            }
+            .upload-details-content {
+                @include dFlex(column, center, flex-start, flex-start);
+                .upload-label-dropdown {
+                    @include dFlex(row);
+                    width: 100%;
+                    .labels {
+                        width: 50%;
+                        @include dFlex(column, center, flex-start, flex-start);
+                        
+                        .label {
+                            height: 50%;
+                            align-self: flex-end;
+                            @include dFlex(flex-start,center ,center ,center )
+                        }
+                    }
+                    .dropdowns {
+                        width: 50%;
+                        @include dFlex(column);
+                    }
+                }
+            }
+        }
+    }
+
+    .upload-button-container, .upload-label-dropdown, .upload-tags-chips {
+        margin-top: 1rem;
+        width: 100%;
+        .upload-button-submit {
+            background: white;
+            border: 1px solid #a5a5a5;
+            border-radius: 5px;
+            padding: 10px 25px;
+            cursor: pointer;
+            transition: .3s;
+        }
+        .upload-button-submit:hover {
+            background: rgb(130, 255, 130);
+        }
+        .upload-button-cancel {
+            border: none;
+            background: white;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: .3s;
+        }
+        .upload-button-cancel:hover {
+            background: #a5a5a5;
+        }
+    }
+
+    @media only screen and (max-width: 600px) {
+        width: 100%;
+    }
+}
+
+
