@@ -16,7 +16,7 @@ let ContentSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
-    src: {
+    path: {
         ...requiredString
     },
     views: {
