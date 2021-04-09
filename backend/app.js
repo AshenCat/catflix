@@ -8,10 +8,11 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const cors = require('cors');
 const fs = require('fs')
-const path = require('path')
+const path = require('path');
+const multer = require('multer');
 
 const userRoute = require('./routes/user.route');
-const mediaRoute = require('./routes/media.route');
+const contentRoute = require('./routes/content.route');
 const config = require('./config/config')
 
 const app = express();
@@ -54,9 +55,23 @@ app.use(helmet());
 
 app.use('/api/static', express.static('./media/generic'))
 app.use('/api/user', userRoute)
-app.use('/api/media', mediaRoute)
+app.use('/api/content', contentRoute)
 
-
+app.use((err, req, res, next) => {
+    if (err instanceof multer.MulterError) {
+        // A Multer error occurred when uploading.
+        res.status(500);
+        res.json({})
+    } else if (err) {
+      // When there's an error somewhere
+        res.status(500);
+        res.json({})
+    }
+    else {
+        res.status(404);
+        res.json({})
+    }
+})
 
 app.listen(port, () => {
     console.log(`app is listening at port ${port}`)
