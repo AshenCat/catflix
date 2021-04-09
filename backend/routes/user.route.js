@@ -1,23 +1,14 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const passport = require('passport');
-const User = require('../models/user')
+const User = require('../models/user');
+const { isUsernameValid, isPasswordValid, isEmailValid} = require('./functions/functions')
+
 const saltRounds = 10;
 
 const server = express.Router()
 
-function isUsernameValid(username){
-    // return !/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]\s/g.test(username);
-    return /^[a-zA-Z0-9_]{6,18}$/.test(username)
-}
 
-function isPasswordValid(password){
-    return /[^\s\/'"[{\]}()*<>;]{6,18}/.test(password)
-}
-
-function isEmailValid(email){
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-}
 
 server.route('/')
     .put((req, res, next)=>{
@@ -85,6 +76,7 @@ server.route('/')
 server.route('/logout')
     .get((req, res) => {
         req.logOut();
+        console.log("user logged out");
         res.json({msg: `Successfully logged out`})
     })
     
