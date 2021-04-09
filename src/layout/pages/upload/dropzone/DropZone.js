@@ -26,14 +26,18 @@ function DropZone(props) {
         e.preventDefault();
         const file = e.dataTransfer.files;
         if (file.length === 1) {
-            if (validateFile(file[0])) {
+            const checkIfValid = validateFile(file[0]);
+            if ( checkIfValid === "okay") {
                 props.setSelectedFile(file[0])
                 const reader = new FileReader();
                 console.log(file[0])
                 reader.readAsDataURL(file[0]);
                 reader.onload = (e) => imageRef.current.style.backgroundImage = `url(${e.target.result})`;
-            } else {
+            } else if (checkIfValid === "invalid file type") {
                 setMessage("invalid file type!");
+                setOpen(true)
+            } else if (checkIfValid === "file size too big") {
+                setMessage("file size too big! (5mb max)");
                 setOpen(true)
             }
         } else {
@@ -50,14 +54,18 @@ function DropZone(props) {
         e.preventDefault();
         const file = e.target.files;
         if (file.length === 1) {
-            if (validateFile(file[0])) {
+            const checkIfValid = validateFile(file[0]);
+            if ( checkIfValid === "okay") {
                 props.setSelectedFile(file[0])
                 const reader = new FileReader();
                 console.log(file[0])
                 reader.readAsDataURL(file[0]);
                 reader.onload = (e) => imageRef.current.style.backgroundImage = `url(${e.target.result})`;
-            } else {
+            } else if (checkIfValid === "invalid file type") {
                 setMessage("invalid file type!");
+                setOpen(true)
+            } else if (checkIfValid === "file size too big") {
+                setMessage("file size too big! (5mb max)");
                 setOpen(true)
             }
         } else {
@@ -79,6 +87,7 @@ function DropZone(props) {
     // }
 
     const validateFile = (file) => {
+        const size = 6000; //in KB
         const validTypes = [
             'image/jpeg', 
             'image/jpg', 
@@ -91,9 +100,12 @@ function DropZone(props) {
             'video/webm',
         ];
         if (validTypes.indexOf(file.type) === -1) {
-            return false;
+            return "invalid file type";
         }
-        return true;
+        if (file.size > size) {
+            return "file size too big";
+        }
+        return "okay";
     }
 
     return (
