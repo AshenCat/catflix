@@ -1,6 +1,6 @@
 import React from 'react';
 import { 
-  useRouteMatch, 
+  // useRouteMatch, 
   withRouter 
 } from 'react-router-dom';
 import Body from './layout/Body';
@@ -13,15 +13,15 @@ import { ThemeProvider } from '@material-ui/core'
 import SideNavProvider from './context/sidenav/SideNavContext';
 
 
-const App = () => {
+const App = (props) => {
 
-  const match = useRouteMatch();
+  // const match = useRouteMatch();
   const { checkAuth } = useUserContext();
 
   React.useEffect(()=>{
-    checkAuth()
+    if(!checkAuth()) props.history.push('/');
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [match])
+  }, [])
 
   return (
     <div className="App">

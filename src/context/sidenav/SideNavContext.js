@@ -47,22 +47,21 @@ function SideNavProvider(props) {
                 <Typography variant="h5" className="sideNav-nav-item" noWrap>
                     <Link to="/home" className="sideNav-link" onClick={()=>setOpenSideNav(false)}>
                         <Grid container alignItems="center" justify="flex-end" wrap="nowrap">
-                        Home
-                    </Grid>
+                            Home
+                        </Grid>
                     </Link>
                 </Typography>
                 <Typography variant="h5" className="sideNav-nav-item" noWrap>
                     <Link to="/dashboard" className="sideNav-link" onClick={()=>setOpenSideNav(false)}>
                         <Grid container alignItems="center" justify="flex-end" wrap="nowrap">
-                            
                             Dashboard
                         </Grid>
                     </Link>
                 </Typography>
                 <Typography variant="h5" className="sideNav-nav-item" noWrap>
-                    <Link to="/subscriptions" className="sideNav-link" onClick={()=>setOpenSideNav(false)}>
+                    <Link to="/upload" className="sideNav-link" onClick={()=>setOpenSideNav(false)}>
                         <Grid container alignItems="center" justify="flex-end" wrap="nowrap">
-                            Subscriptions
+                            upload
                         </Grid>
                     </Link>
                 </Typography>
