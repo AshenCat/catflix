@@ -1,5 +1,5 @@
 ## Current status:
-### Upload feature - day 3
+### Upload feature - day 3 (stuck with preventing upload if not authenticated using multer)
 
 # Hi, welcome to the Catflix project!
 Catflix is an opensource CMS application using MERN stack.
@@ -17,7 +17,6 @@ backend dependencies:
 
 Dependencies to be added later:
 Socket.io
-Multer
 Image minify on backend
 
 ### Needed files that are not included in the git repo
@@ -47,7 +46,7 @@ Users: people who are registered and is using the site
     - [ ] Users can comment on a content
 - [ ] Logged in users must be able to manage their contents
     - [ ] Backend routes must minify uploaded contents
-    - [ ] Users can add a new content
+    - [x] Users can add a new content
     - [ ] Users can view their content
     - [ ] Users can edit their content
     - [ ] users can delete their content
