@@ -1,3 +1,6 @@
+## Current status:
+### Upload feature - day 3
+
 # Hi, welcome to the Catflix project!
 Catflix is an opensource CMS application using MERN stack.
 
@@ -39,7 +42,7 @@ Users: people who are registered and is using the site
 - [ ] Users must be able to make changes on their profile
     - [x] View user profile
     - [ ] Edit user profile
-- [ ] Visitors must be able to view public content - ONGOING
+- [ ] Visitors must be able to view public content
     - [ ] Users can upvote/downvote contents
     - [ ] Users can comment on a content
 - [ ] Logged in users must be able to manage their contents
