@@ -23,7 +23,9 @@ export default function UserProvider(props) {
                         setSubmitting(false)
                     // }, 1000)
                 }
-                else setUserSession(res.data.payload);
+                else {
+                    setUserSession(res.data.payload);
+                }
             }).catch((err) => {
                 console.log(err);
             })
@@ -48,8 +50,9 @@ export default function UserProvider(props) {
         Axios.post(`${target}/api/user/`, {}, {withCredentials: true})
             .then((res) => {
                 // console.log("Checking user auth: ")
-                // console.log(res.data)
+                // console.log(res.data.authenticated)
                 setUserSession(res.data)
+                return res.data.authenticated;
             }).catch((err) => {
                 console.log("Server Error...")
             })
