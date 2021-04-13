@@ -60,19 +60,41 @@ app.use('/api/content', contentRoute)
 app.use((err, req, res, next) => {
     if (err instanceof multer.MulterError) {
         // A Multer error occurred when uploading.
-        res.status(500);
-        res.json({})
+        switch(err.code){
+            case 'LIMIT_FILE_SIZE':
+                res.status(400).json({
+                    message: "File size too big",
+                    stack: req.user.access === "admin" || process.env.NODE_ENV === "development" ? err.stack : null
+                })
+                break;
+            case 'LIMIT_FILE_COUNT':
+                res.status(400).json({
+                    message: "File count exceeded",
+                    stack: req.user.access === "admin" || process.env.NODE_ENV === "development" ? err.stack : null
+                })
+                break;
+            default: 
+                res.status(500).json({
+                    message: "Unknown error while uploading file.",
+                    stack: req.user.access === "admin" || process.env.NODE_ENV === "development" ? err.stack : null
+                })
+        }
     } else if (err) {
       // When there's an error somewhere
         res.status(500);
-        res.json({})
+        res.json({
+            message: "Unknown error",
+            stack: req.user.access === "admin" || process.env.NODE_ENV === "development" ? err.stack : null
+        })
     }
     else {
-        res.status(404);
-        res.json({})
+        // No error, but the route doesn't exist
+        res.status(301).redirect('/404');
     }
 })
 
 app.listen(port, () => {
     console.log(`app is listening at port ${port}`)
+    // console.log('Logo.cat-neko[pog].png')
 })
+//.replace(/[&/\\\-@`!;#,^+()$[\]~%.'":*?<>{}]/g,'')
