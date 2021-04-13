@@ -1,27 +1,62 @@
 import { Chip, MenuItem, Select, TextField, Typography } from '@material-ui/core';
 import { Close } from '@material-ui/icons';
+import Axios from 'axios';
 import React from 'react';
 import { withRouter } from 'react-router';
-import { useUserContext } from '../../../context/UserContext';
+// import { useUserContext } from '../../../context/UserContext';
 import DropZone from './dropzone/DropZone';
 import './upload.scss';
+import target from '../../../helper/target'
+
+export const changeFileNameToValid = (fileName) => {
+    const name = fileName.split('.').slice(0,-1).join();
+    const fileType = fileName.split('.').pop();
+    return name.replace(/[&/\\\-@`!;#,^+()$[\]~%.'":*?<>{}]/g,'').concat(`.${fileType}`);
+}
 
 function Upload(props) {
-    const { userSession } = useUserContext();
-    const [tags, setTags] = React.useState(["memes"])
+    // const {userSession} = props;
+    const [tags, setTags] = React.useState([])
     const [selectedFile, setSelectedFile] = React.useState();
-
-    const addTag = (e) => {
-        setTags([...new Set([...tags, e.target.value])])
-    }
+    const [visibility, setVisibility] = React.useState("")
+    const [title, setTitle] = React.useState("")
 
     const handleDelete = (remove) => {
-        setTags([...tags].filter(tag=> tag !== remove))
+        setTags([...tags].filter(tag=> tag !== remove));
     }
 
-    React.useEffect(()=> {
-        if(!userSession) props.history.push('/');
-    }, [])
+    const handleSelectChange = (e, stateName) => {
+        if (stateName === "visibility") {
+            setVisibility(e.target.value)
+        } else if (stateName === "tags") {   
+            if (e.target.value !== "" && e.target.value) {
+                setTags([...new Set([...tags, e.target.value])]);
+            }
+        }
+    }
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+        // console.log(selectedFile.name)
+        const changedFileName = new File([selectedFile], changeFileNameToValid(selectedFile.name), {
+            type: selectedFile.type,
+            lastModified: selectedFile.lastModified,
+        })
+        setSelectedFile(changedFileName)
+        console.log(changedFileName)
+        // console.log(tags)
+        // console.log(title)
+        // console.log(visibility)
+        const formData = new FormData();
+        formData.append('file', selectedFile);
+        formData.append('tags[]', tags);
+        formData.append('visibility', visibility);
+        formData.append('title', title);
+        Axios.post(`${target}/api/content`, formData, {withCredentials: true})
+            .then((res) =>
+                console.log(res.data)
+            )
+    }
 
     return (
         <div className="upload-container">
@@ -45,6 +80,8 @@ function Upload(props) {
                             className="upload-txt-title"
                             name="title"
                             label="Title"
+                            value={title}
+                            onChange={(e)=>setTitle(e.target.value)}
                             fullWidth
                             id="upload-title-textfield"
                             size="medium"
@@ -59,8 +96,11 @@ function Upload(props) {
 
                             <div className="dropdowns">
                                 <Select
-                                    defaultValue="public"
+                                    // defaultValue="public"
+                                    displayEmpty
+                                    onChange={(e)=>handleSelectChange(e, "visibility")}
                                     title="Visibility"
+                                    value={visibility}
                                     id="upload-title-textfield"
                                     aria-labelledby="visibility"
                                     >
@@ -68,9 +108,11 @@ function Upload(props) {
                                     <MenuItem value="private">Private</MenuItem>
                                 </Select>
                                 <Select
-                                    defaultValue="meme"
-                                    aria-labelledby="tag-label"
-                                    onChange={addTag}>
+                                    displayEmpty
+                                    onChange={(e)=>handleSelectChange(e, "tags")}
+                                    defaultValue=""
+                                    aria-labelledby="tag-label">
+                                    <MenuItem defaultValue=""></MenuItem>
                                     <MenuItem value="meme">Meme</MenuItem>
                                     <MenuItem value="fluff">Fluff</MenuItem>
                                     <MenuItem value="kappa">Kappa</MenuItem>
@@ -82,7 +124,7 @@ function Upload(props) {
                             {tags.map((tag, index)=> <Chip style={{marginLeft: '5px'}} key={index} variant="outlined" size="small" label={tag} onDelete={()=>handleDelete(tag)} />)}
                         </div>
                         <div className="upload-button-container">
-                            <button className="upload-button-submit">Upload Meme</button>
+                            <button className="upload-button-submit" onClick={onSubmit}>Upload Meme</button>
                             <button className="upload-button-cancel">Cancel</button>
                         </div>
                     </div>
