@@ -32,16 +32,20 @@ let userSchema = new Schema({
         default: "user"
     },
     comments: [{
-        
-    }],
-    subscriptions: [{
-        
+        type: Schema.Types.ObjectId,
+        ref: 'Comment'
     }],
     notifications: [{
-
+        type: Schema.Types.ObjectId,
+        ref: 'Notification'
     }],
     history: [{
-
+        type: Schema.Types.ObjectId,
+        refType: String
+    }],
+    uploads: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Content'
     }]
 }, {timestamps: true})
 
