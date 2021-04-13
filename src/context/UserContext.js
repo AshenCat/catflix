@@ -55,6 +55,7 @@ export default function UserProvider(props) {
                 return res.data.authenticated;
             }).catch((err) => {
                 console.log("Server Error...")
+                console.log(err)
             })
     }
 
