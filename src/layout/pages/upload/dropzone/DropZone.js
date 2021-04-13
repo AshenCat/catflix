@@ -58,7 +58,7 @@ function DropZone(props) {
             if ( checkIfValid === "okay") {
                 props.setSelectedFile(file[0])
                 const reader = new FileReader();
-                console.log(file[0])
+                // console.log(file[0])
                 reader.readAsDataURL(file[0]);
                 reader.onload = (e) => imageRef.current.style.backgroundImage = `url(${e.target.result})`;
             } else if (checkIfValid === "invalid file type") {
@@ -87,7 +87,7 @@ function DropZone(props) {
     // }
 
     const validateFile = (file) => {
-        const size = 6000; //in KB
+        const size = 1024 * 1024 * 4; //in bytes
         const validTypes = [
             'image/jpeg', 
             'image/jpg', 
