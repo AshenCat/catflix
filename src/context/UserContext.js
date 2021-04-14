@@ -49,9 +49,12 @@ export default function UserProvider(props) {
     const checkAuth = () => {
         Axios.post(`${target}/api/user/`, {}, {withCredentials: true})
             .then((res) => {
-                // console.log("Checking user auth: ")
-                // console.log(res.data.authenticated)
-                setUserSession(res.data)
+                console.log("Checking user auth: " + res.data.authenticated)
+                // console.log(res.data)
+                if(!res.data.authenticated) {
+                    setUserSession(null);
+                }
+                else setUserSession(res.data);
                 return res.data.authenticated;
             }).catch((err) => {
                 console.log("Server Error...")
