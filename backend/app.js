@@ -31,7 +31,7 @@ mongoose.connect(config.db, {
 
 let wstream = fs.createWriteStream(path.join(__dirname, 'access.log'), {flags: 'a'});
 app.use(express.json());
-// app.use(cookieParser())
+app.use(cookieParser())
 app.use(express.urlencoded({extended:true}))
 
 app.use(cors({
@@ -64,19 +64,20 @@ app.use((err, req, res, next) => {
             case 'LIMIT_FILE_SIZE':
                 res.status(400).json({
                     message: "File size too big",
-                    stack: req.user.access === "admin" || process.env.NODE_ENV === "development" ? err.stack : null
+                    stack: process.env.NODE_ENV === "development" ? err.stack : null
                 })
                 break;
             case 'LIMIT_FILE_COUNT':
                 res.status(400).json({
                     message: "File count exceeded",
-                    stack: req.user.access === "admin" || process.env.NODE_ENV === "development" ? err.stack : null
+                    stack: process.env.NODE_ENV === "development" ? err.stack : null
                 })
                 break;
             default: 
+                console.error(err)
                 res.status(500).json({
                     message: "Unknown error while uploading file.",
-                    stack: req.user.access === "admin" || process.env.NODE_ENV === "development" ? err.stack : null
+                    stack: process.env.NODE_ENV === "development" ? err.stack : null
                 })
         }
     } else if (err) {
@@ -86,17 +87,23 @@ app.use((err, req, res, next) => {
         if (res.status() === 401) {
             res.json({
                 message: err,
-                stack: req.user.access === "admin" || process.env.NODE_ENV === "development" ? err.stack : null
+                stack: process.env.NODE_ENV === "development" ? err.stack : null
+            })
+        } else if (req.multerError) {
+            res.status(400).json({
+                message: req.multerError,
+                stack: process.env.NODE_ENV === "development" ? err.stack : null
             })
         }
         else 
             res.status(500).json({
                 message: "Unknown error",
-                stack: req.user.access === "admin" || process.env.NODE_ENV === "development" ? err.stack : null
+                stack: process.env.NODE_ENV === "development" ? err.stack : null
             })
     }
     else {
         // No error, but the route doesn't exist
+        console.info("route not found")
         res.status(301).redirect('/404');
     }
 })
