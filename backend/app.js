@@ -80,12 +80,20 @@ app.use((err, req, res, next) => {
                 })
         }
     } else if (err) {
-      // When there's an error somewhere
-        res.status(500);
-        res.json({
-            message: "Unknown error",
-            stack: req.user.access === "admin" || process.env.NODE_ENV === "development" ? err.stack : null
-        })
+        // When there's an error somewhere
+        // Check statuscode
+        // May add more
+        if (res.status() === 401) {
+            res.json({
+                message: err,
+                stack: req.user.access === "admin" || process.env.NODE_ENV === "development" ? err.stack : null
+            })
+        }
+        else 
+            res.status(500).json({
+                message: "Unknown error",
+                stack: req.user.access === "admin" || process.env.NODE_ENV === "development" ? err.stack : null
+            })
     }
     else {
         // No error, but the route doesn't exist
@@ -95,6 +103,4 @@ app.use((err, req, res, next) => {
 
 app.listen(port, () => {
     console.log(`app is listening at port ${port}`)
-    // console.log('Logo.cat-neko[pog].png')
 })
-//.replace(/[&/\\\-@`!;#,^+()$[\]~%.'":*?<>{}]/g,'')
