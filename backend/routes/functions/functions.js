@@ -12,7 +12,9 @@ function isEmailValid(email){
 }
 
 function removeSymbolsAndTypeOfFileName(fileName){
-    return fileName.split('.').slice(0,-1).join().replace(/[&/\\\-@`!;#,^+()$[\]~%.'":*?<>{}]/g,'');
+    const extension = fileName.split('.').pop();
+    // console.log(fileName.split('.').slice(0,-1).join().replace(/[&/\\\-@`!;#,^+()$[\]~%.'":*?<>{}]/,'').concat('.',extension))
+    return fileName.split('.').slice(0,-1).join().replace(/[&/\\\-@`!;#,^+()$[\]~%.'":*?<>{}]/g,'').concat('.', extension);
 }
 
 module.exports = {
