@@ -116,6 +116,7 @@ function DropZone(props) {
             onDrop={fileDrop}>
             {props.selectedFile ? 
             <div ref={imageRef} className="uploaded-meme">
+                {props.selectedFile.name}
                 <button className="upload-close-button" onClick={deleteImage}><Close /></button>
             </div> : 
             <>
