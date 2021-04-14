@@ -62,7 +62,7 @@ server.route('/')
     })
     .post((req, res) => {
         // if(req.user) console.log("Auth success");
-        if(!req.user) res.json(null)
+        if(!req.user) res.json({authenticated:false})
         else res.json({
             username: req.user.username,
             authenticated: true,
