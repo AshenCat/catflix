@@ -3,10 +3,11 @@ import { Close } from '@material-ui/icons';
 import Axios from 'axios';
 import React from 'react';
 import { withRouter } from 'react-router';
-// import { useUserContext } from '../../../context/UserContext';
+import { useUserContext } from '../../../context/UserContext';
 import DropZone from './dropzone/DropZone';
 import './upload.scss';
 import target from '../../../helper/target'
+import { useSnackbarContext } from '../../../context/SnackbarContext';
 
 export const changeFileNameToValid = (fileName) => {
     const name = fileName.split('.').slice(0,-1).join();
@@ -15,11 +16,20 @@ export const changeFileNameToValid = (fileName) => {
 }
 
 function Upload(props) {
-    // const {userSession} = props;
-    const [tags, setTags] = React.useState([])
-    const [selectedFile, setSelectedFile] = React.useState();
-    const [visibility, setVisibility] = React.useState("")
+    const {checkAuth} = useUserContext();
+    const { setOpen, setMessage } = useSnackbarContext();
+    const [tags, setTags] = React.useState(["meme"])
+    const [selectedFile, setSelectedFile] = React.useState(null);
+    const [visibility, setVisibility] = React.useState("public")
     const [title, setTitle] = React.useState("")
+
+    React.useEffect(()=> {
+        if (checkAuth() === false) {
+            console.log("not logged in. redirecting...")
+            props.history.push('/')
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     const handleDelete = (remove) => {
         setTags([...tags].filter(tag=> tag !== remove));
@@ -38,15 +48,20 @@ function Upload(props) {
     const onSubmit = (e) => {
         e.preventDefault();
         // console.log(selectedFile.name)
+        if (selectedFile === null ) {
+            setMessage("Please attach a file...")
+            setOpen(true)
+            return;
+        } else if (title.length < 3) {
+            setMessage("Enter a title at least 4 characters long")
+            setOpen(true)
+            return;
+        }
         const changedFileName = new File([selectedFile], changeFileNameToValid(selectedFile.name), {
             type: selectedFile.type,
             lastModified: selectedFile.lastModified,
         })
         setSelectedFile(changedFileName)
-        console.log(changedFileName)
-        // console.log(tags)
-        // console.log(title)
-        // console.log(visibility)
         const formData = new FormData();
         formData.append('file', selectedFile);
         formData.append('tags[]', tags);
@@ -55,7 +70,11 @@ function Upload(props) {
         Axios.post(`${target}/api/content`, formData, {withCredentials: true})
             .then((res) =>
                 console.log(res.data)
-            )
+            ).catch(err=>{
+                console.log(err.response?.data)
+                if (err.response?.data?.message === "unauthorized")
+                    props.history.replace('/401')
+            })
     }
 
     return (
@@ -110,9 +129,9 @@ function Upload(props) {
                                 <Select
                                     displayEmpty
                                     onChange={(e)=>handleSelectChange(e, "tags")}
-                                    defaultValue=""
+                                    defaultValue="meme"
                                     aria-labelledby="tag-label">
-                                    <MenuItem defaultValue=""></MenuItem>
+                                    {/* <MenuItem defaultValue=""></MenuItem> */}
                                     <MenuItem value="meme">Meme</MenuItem>
                                     <MenuItem value="fluff">Fluff</MenuItem>
                                     <MenuItem value="kappa">Kappa</MenuItem>
