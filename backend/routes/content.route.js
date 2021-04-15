@@ -48,7 +48,7 @@ const upload = multer({
     }
 }).single('file')
 
-server.post("/", upload, (req,res,next)=> {
+server.put("/", upload, (req,res,next)=> {
     //if user is logged in
     if (req.user) {
         if(req.file) {
