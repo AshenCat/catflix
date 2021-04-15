@@ -48,38 +48,67 @@ const upload = multer({
     }
 }).single('file')
 
-server.put("/", upload, (req,res,next)=> {
-    //if user is logged in
-    if (req.user) {
-        if(req.file) {
-            const newContent = {
-                title: req.body.title,
-                author: new mongoose.Types.ObjectId(req.user._id),
-                file: {
-                    filename: req.file.filename,
-                    path: req.file.path
-                },
-                visibility: req.body.visibility,
-                tags: req.body.tags
-            }
-            // actual save content
-            Content.create(newContent, (err, doc) => {
-                if (err) return next(err)
-                res.json({
-                    msg: 'A new meme is born',
-                    payload: doc._id
+server.route('/')
+    .put(upload, (req,res,next)=> {
+        //if user is logged in
+        if (req.user) {
+            if(req.file) {
+                const newContent = {
+                    title: req.body.title,
+                    author: new mongoose.Types.ObjectId(req.user._id),
+                    file: {
+                        filename: req.file.filename,
+                        path: req.file.path
+                    },
+                    visibility: req.body.visibility,
+                    tags: req.body.tags
+                }
+                // actual save content
+                Content.create(newContent, (err, doc) => {
+                    if (err) return next(err)
+                    res.json({
+                        msg: 'A new meme is born',
+                        payload: doc._id
+                    })
                 })
-            })
-        }
+            }
+            else {
+                console.log("route: no file")
+                next(new Error('Incomplete body request: missing file'))
+            }
+        } //if user isn't logged in
         else {
-            console.log("route: no file")
-            next(new Error('Incomplete body request: missing file'))
+            res.status(401);
+            next(new Error('Unauthorized request!'));
         }
-    } //if user isn't logged in
-    else {
-        res.status(401);
-        next(new Error('Unauthorized request!'));
-    }
-})
+    });
+    
+server.route('/:perPage?/:page?')
+    .get((req, res, next) => {
+        // const { perPage, page } = req.query;
+        const page = parseInt(req.query.page) || 0;
+        const perPage = parseInt(req.query.perPage) || 5;
+
+
+        console.log(`requesting ${perPage} item(s) on page ${page} .`)
+        console.log(`===================================`)
+        Content.find()
+            .limit(perPage)
+            .skip(perPage * page)
+            // .sort({name: 'asc'})
+            .exec((err, docs) => {
+                if (err) {
+                    console.log(err.stack)
+                    return next(err);
+                }
+                // console.log(docs)
+                res.json({
+                    msg: `${perPage} items after skipping ${perPage * page} items`,
+                    payload: docs
+                })
+        })
+    })
+
+
 
 module.exports = server;
