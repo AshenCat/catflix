@@ -45,7 +45,7 @@ server.route('/')
                                     let user = {
                                         username: req.body.username,
                                         password: hash,
-                                        access: req.user.access === "admin" ? req.body.access : "user",
+                                        access: req.user?.access === "admin" ? req.body.access : "user",
                                     }
                                     User.create(user, (err, doc) => {
                                         if(err) {
