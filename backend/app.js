@@ -53,9 +53,10 @@ require('./config/passportConfig')(passport);
 app.use(morgan('common', {stream: wstream}))
 app.use(helmet());
 
-app.use('/api/static', express.static('./media/generic'))
+app.use('/api/generics', express.static('./media/generic'))
+app.use('/api/uploads', express.static('./media/uploads'))
 app.use('/api/user', userRoute)
-app.use('/api/content', contentRoute)
+app.use('/api/contents', contentRoute)
 
 app.use((err, req, res, next) => {
     if (err instanceof multer.MulterError) {
@@ -110,7 +111,7 @@ app.use((err, req, res, next) => {
         }
         else 
             res.status(500).json({
-                msg: "Unknown error",
+                msg: err.message,
                 stack: process.env.NODE_ENV === "development" ? err.stack : null
             })
     }
