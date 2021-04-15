@@ -64,7 +64,7 @@ function Upload(props) {
         formData.append('visibility', visibility);
         formData.append('title', title);
         formData.append('file', selectedFile);
-        Axios.post(`${target}/api/content`, formData, {withCredentials: true})
+        Axios.put(`${target}/api/content`, formData, {withCredentials: true})
             .then((res) =>
                 console.log(res.data)
             ).catch(err=>{
