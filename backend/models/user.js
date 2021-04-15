@@ -41,7 +41,7 @@ let userSchema = new Schema({
     }],
     history: [{
         type: Schema.Types.ObjectId,
-        refType: String
+        ref: 'Content'
     }],
     uploads: [{
         type: Schema.Types.ObjectId,

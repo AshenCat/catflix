@@ -16,8 +16,9 @@ let ContentSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
-    path: {
-        ...requiredString
+    file: {
+        filename: {...requiredString},
+        path: {...requiredString}
     },
     views: {
         type: Number,
@@ -27,13 +28,18 @@ let ContentSchema = new Schema({
         type: Number,
         default: 0
     },
+    visibility: {
+        type: String,
+        enum: ['public', 'private'],
+        default: 'public'
+    },
     comments: [{        
         type: Schema.Types.ObjectId,
         ref: 'Comment'
     }],
     tags: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Tag'
+        type: String,
+        default: 'meme'
     }]
 }, {timestamps: true})
 
