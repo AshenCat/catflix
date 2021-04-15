@@ -24,10 +24,7 @@ function Upload(props) {
     const [title, setTitle] = React.useState("")
 
     React.useEffect(()=> {
-        if (checkAuth() === false) {
-            console.log("not logged in. redirecting...")
-            props.history.push('/')
-        }
+        checkAuth()
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -47,7 +44,7 @@ function Upload(props) {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        // console.log(selectedFile.name)
+        console.log(selectedFile.name)
         if (selectedFile === null ) {
             setMessage("Please attach a file...")
             setOpen(true)
@@ -63,16 +60,16 @@ function Upload(props) {
         })
         setSelectedFile(changedFileName)
         const formData = new FormData();
-        formData.append('file', selectedFile);
         formData.append('tags[]', tags);
         formData.append('visibility', visibility);
         formData.append('title', title);
+        formData.append('file', selectedFile);
         Axios.post(`${target}/api/content`, formData, {withCredentials: true})
             .then((res) =>
                 console.log(res.data)
             ).catch(err=>{
                 console.log(err.response?.data)
-                if (err.response?.data?.message === "unauthorized")
+                if (err.response?.data?.msg === "unauthorized")
                     props.history.replace('/401')
             })
     }

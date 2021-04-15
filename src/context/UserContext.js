@@ -2,6 +2,7 @@ import React from 'react';
 import Axios from 'axios';
 import target from '../helper/target';
 import { useSnackbarContext } from './SnackbarContext';
+import { withRouter } from 'react-router';
 
 const UserContext = React.createContext();
 
@@ -9,7 +10,7 @@ export const useUserContext = () => {
     return React.useContext(UserContext)
 }
 
-export default function UserProvider(props) {
+function UserProvider(props) {
     const [userSession, setUserSession] = React.useState(null);
     const { setOpen, setMessage } = useSnackbarContext();
 
@@ -36,11 +37,12 @@ export default function UserProvider(props) {
             .then((res)=> {
                 //Snackbar here
                 // console.log(res.data)
-                setMessage(res.data.msg);
-                setOpen(true);
                 // document.cookie = "connect.sid=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                 // console.log('logging out')
                 setUserSession(null)
+                setMessage("You have logged out")
+                setOpen(true)
+                setTimeout(()=>props.history.push('/'), 50)
             }).catch((err) => {
                 console.log("Server Error...")
             })
@@ -53,9 +55,11 @@ export default function UserProvider(props) {
                 // console.log(res.data)
                 if(!res.data.authenticated) {
                     setUserSession(null);
+                    setMessage("User session expired");
+                    setOpen(true);
+                    props.history.push('/')
                 }
                 else setUserSession(res.data);
-                return res.data.authenticated;
             }).catch((err) => {
                 console.log("Server Error...")
                 console.log(err)
@@ -68,3 +72,5 @@ export default function UserProvider(props) {
         </UserContext.Provider>
     )
 }
+
+export default withRouter(UserProvider);
