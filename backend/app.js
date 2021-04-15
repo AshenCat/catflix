@@ -63,20 +63,20 @@ app.use((err, req, res, next) => {
         switch(err.code){
             case 'LIMIT_FILE_SIZE':
                 res.status(400).json({
-                    message: "File size too big",
+                    msg: "File size too big",
                     stack: process.env.NODE_ENV === "development" ? err.stack : null
                 })
                 break;
             case 'LIMIT_FILE_COUNT':
                 res.status(400).json({
-                    message: "File count exceeded",
+                    msg: "File count exceeded",
                     stack: process.env.NODE_ENV === "development" ? err.stack : null
                 })
                 break;
             default: 
                 console.error(err)
                 res.status(500).json({
-                    message: "Unknown error while uploading file.",
+                    msg: "Unknown error while uploading file.",
                     stack: process.env.NODE_ENV === "development" ? err.stack : null
                 })
         }
@@ -84,20 +84,33 @@ app.use((err, req, res, next) => {
         // When there's an error somewhere
         // Check statuscode
         // May add more
+        const listOfBadReqErrs = [
+            'File type error!', 
+            'Incomplete body request: missing visibility',
+            'Incomplete body request: missing title',
+            'Incomplete body request: missing tags',
+            'Incomplete body request: missing file'
+        ];
         if (res.status() === 401) {
             res.json({
-                message: err,
+                msg: err,
                 stack: process.env.NODE_ENV === "development" ? err.stack : null
             })
-        } else if (req.multerError) {
+            // Multer filefilter errors
+        } else if (err.message === "Unauthorized request!") {
+            res.status(401).json({
+                msg: 'Unauthorized request',
+                stack: process.env.NODE_ENV === "development" ? err.stack : null
+            })
+        } else if (listOfBadReqErrs.includes(err.message)) {
             res.status(400).json({
-                message: req.multerError,
+                msg: err.message,
                 stack: process.env.NODE_ENV === "development" ? err.stack : null
             })
         }
         else 
             res.status(500).json({
-                message: "Unknown error",
+                msg: "Unknown error",
                 stack: process.env.NODE_ENV === "development" ? err.stack : null
             })
     }
