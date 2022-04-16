@@ -1,4 +1,5 @@
 ## Current status:
+## PROJECT DISMISSED
 ### Upload feature - day 3 (stuck with preventing upload if not authenticated using multer)
 
 # Hi, welcome to the Catflix project!
